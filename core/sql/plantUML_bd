@@ -1,0 +1,42 @@
+@startuml
+
+entity Utilisateurs {
+  + id [PK]
+  --
+  email
+  mot_de_passe
+  role
+}
+
+entity Categories {
+  + id [PK]
+  --
+  libelle
+  description
+}
+
+entity Evenements {
+  + id [PK]
+  --
+  titre
+  description
+  tarif
+  date_debut
+  date_fin
+  horaire
+  categorie_id [FK]
+  est_publie
+}
+
+entity Images {
+  + id [PK]
+  --
+  evenement_id [FK]
+  url
+}
+
+Utilisateurs --o{ Evenements : "créé par"
+Categories --o{ Evenements : "contient"
+Evenements ||--o{ Images : "a pour"
+
+@enduml

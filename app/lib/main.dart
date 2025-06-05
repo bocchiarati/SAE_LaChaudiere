@@ -1,19 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:provider/provider.dart';
+import 'package:todo_liste/screen/EventListScreen.dart';
 
-import 'MyHomePage.dart';
-
-Future<void> main() async {
-
-  await dotenv.load(fileName: ".env");
-
-  runApp(
-    ChangeNotifierProvider(
-      create: (context) => tasksProvider,
-      child: const MyApp(),
-    ),
-  );
+void main() {
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -26,9 +15,8 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
-      home: const MyHomePage(title: 'La Chaudière'),
+      home: EventListScreen(),
     );
   }
 }
-
 

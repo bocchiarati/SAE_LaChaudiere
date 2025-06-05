@@ -1,10 +1,10 @@
 <?php
 
-namespace gift\appli\webui\providers;
+namespace App\webui\providers;
 
-use app\application_core\application\useCases\interfaces\AuthnServiceInterface;
-use app\application_core\domain\entities\User;
-use app\webui\providers\interfaces\AuthnProviderInterface;
+use App\application_core\application\useCases\interfaces\AuthnServiceInterface;
+use App\application_core\domain\entities\User;
+use App\webui\providers\interfaces\AuthnProviderInterface;
 
 class SessionAuthnProvider implements AuthnProviderInterface {
     private AuthnServiceInterface $authnService;

@@ -1,8 +1,8 @@
 <?php
 
-namespace gift\appli\application_core\application\useCases;
+namespace App\application_core\application\useCases;
 
-use app\application_core\application\useCases\interfaces\FormBuilderInterface;
+use App\application_core\application\useCases\interfaces\FormBuilderInterface;
 
 class FormBuilder implements FormBuilderInterface {
     public function buildSignInForm(): array {

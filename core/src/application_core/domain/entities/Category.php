@@ -1,6 +1,6 @@
 <?php
 
-namespace app\application_core\domain\entities;
+namespace App\application_core\domain\entities;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -10,11 +10,11 @@ use Illuminate\Database\Eloquent\Model;
  **
  */
 
-class Categorie extends Model {
-    protected $table = 'categorie';
+class Category extends Model {
+    protected $table = 'category';
 
     public $timestamps = false;
-    protected $fillable = ['libelle', 'description'];
+    protected $fillable = ['label', 'description'];
 
 
     /**
@@ -23,6 +23,6 @@ class Categorie extends Model {
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function evenements() {
-        return $this->hasMany(Evenement::class, "categorie_id");
+        return $this->hasMany(Event::class, "category_id");
     }
 }

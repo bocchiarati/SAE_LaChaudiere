@@ -1,9 +1,9 @@
 <?php
 
-namespace app\application_core\application\useCases;
+namespace App\application_core\application\useCases;
 
-use app\application_core\application\useCases\interfaces\AuthnServiceInterface;
-use app\application_core\domain\entities\User;
+use App\application_core\application\useCases\interfaces\AuthnServiceInterface;
+use App\application_core\domain\entities\User;
 use MongoDB\Driver\Exception\AuthenticationException;
 
 class AuthnService implements AuthnServiceInterface {

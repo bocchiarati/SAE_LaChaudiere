@@ -36,3 +36,14 @@ services:
     volumes:
       - ./core/sql/schemas.sql:/docker-entrypoint-initdb.d/01_schema.sql
       - ./core/sql/data.sql:/docker-entrypoint-initdb.d/02_data.sql
+
+  client:
+    build:
+      context: ./web
+      dockerfile: Dockerfile
+    ports:
+      - "11:80"
+    networks:
+      - app.net
+    depends_on:
+      - php

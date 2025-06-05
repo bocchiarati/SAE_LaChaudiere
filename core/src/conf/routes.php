@@ -1,20 +1,20 @@
 <?php
 
-use app\webui\actions\GetCreateEventAction;
+use App\webui\actions\GetCreateEventAction;
 use App\webui\actions\GetHomeAction;
-use app\webui\actions\PostCreateEventAction;
+use App\webui\actions\PostCreateEventAction;
 
 return function ($app) {
 
     //-----------GET-----------//
     $app->get('/', GetHomeAction::class)
         ->setName('homepage');
-    $app->get('/create_event', GetCreateEventAction::class)
-        ->setName('create-event');
+    $app->get('/create-event', GetCreateEventAction::class)
+        ->setName('create_event');
 
     //-----------POST-----------//
-    $app->post('/create_event', PostCreateEventAction::class)
-        ->setName('post-create-event');
+    $app->post('/create-event', PostCreateEventAction::class)
+        ->setName('post_create_event');
 
     return $app;
 };

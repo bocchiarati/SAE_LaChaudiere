@@ -1,8 +1,8 @@
 <?php
 
-namespace app\application_core\application\useCases;
+namespace App\application_core\application\useCases;
 
-use app\application_core\application\useCases\interfaces\FormBuilderInterface;
+use App\application_core\application\useCases\interfaces\FormBuilderInterface;
 
 class FormBuilder implements FormBuilderInterface {
     public function buildSignInForm(): array {
@@ -67,6 +67,74 @@ class FormBuilder implements FormBuilderInterface {
                     'placeholder' => 'Renseigner votre mot de passe à nouveau',
                     "required" => true,
                 ]
+            ],
+            'selects' => []
+        ];
+    }
+
+    public function buildCreateEventForm(): array
+    {
+        return [
+            'actionRoute' => 'post_create_event',
+            'submit_button' => "Créer l'événement",
+            'links' => [],
+            'inputs' => [
+                [
+                    'name' => 'title',
+                    'label' => 'Titre',
+                    'type' => 'text',
+                    'placeholder' => 'Titre de l\'événement',
+                    'required' => true
+                ],
+                [
+                    'name' => 'description',
+                    'label' => 'description',
+                    'type' => 'text',
+                    'placeholder' => 'Description de l\'événement',
+                    "required" => false,
+                ],
+                [
+                    'name' => 'price',
+                    'label' => 'Prix',
+                    'type' => 'number',
+                    'placeholder' => 'Prix de l\'événement',
+                    "required" => false,
+                ],
+                [
+                    'name' => 'start_date',
+                    'label' => 'Date de début de l\'événement',
+                    'type' => 'date',
+                    'placeholder' => '',
+                    "required" => true,
+                ],
+                [
+                    'name' => 'end_date',
+                    'label' => 'Date de fin de l\'événement',
+                    'type' => 'date',
+                    'placeholder' => '',
+                    "required" => false,
+                ],
+                [
+                    'name' => 'time',
+                    'label' => 'Durée de l\'événement',
+                    'type' => 'time',
+                    'placeholder' => '',
+                    "required" => false,
+                ],
+                [
+                    'name' => 'category_id',
+                    'label' => 'Ici y aura les choix de catégorie',
+                    'type' => 'text',
+                    'placeholder' => '',
+                    "required" => false,
+                ],
+                [
+                    'name' => 'is_published',
+                    'label' => 'L\'événement doit-il être publié ?',
+                    'type' => 'checkbox',
+                    'placeholder' => '',
+                    "required" => false,
+                ],
             ],
             'selects' => []
         ];

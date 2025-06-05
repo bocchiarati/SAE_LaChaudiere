@@ -8,5 +8,5 @@
 - CHERCHARI Sofien
 - BENA Hugo
 - LEVEQUE Tuline
-- .... Eloi
+- REIGNIER Eloi
 - .... Nathan

@@ -1,0 +1,3 @@
+/src/composer.lock
+.env
+/src/conf/db.ini

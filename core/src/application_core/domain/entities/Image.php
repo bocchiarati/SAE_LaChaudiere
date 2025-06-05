@@ -1,6 +1,6 @@
 <?php
 
-namespace app\application_core\domain\entities;
+namespace App\application_core\domain\entities;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -11,10 +11,13 @@ use Illuminate\Database\Eloquent\Model;
  */
 
 class Image extends Model {
-    protected $table = 'categorie';
+    protected $table = 'image';
 
     public $timestamps = false;
-    protected $fillable = ['libelle', 'description'];
+    protected $fillable = [
+        'event_id',
+        'url'
+    ];
 
 
     /**
@@ -23,6 +26,6 @@ class Image extends Model {
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function evenement() {
-        return $this->belongsTo(Evenement::class, "evenement_id");
+        return $this->belongsTo(Event::class, "event_id");
     }
 }

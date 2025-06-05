@@ -4,10 +4,12 @@ networks:
 
 services:
   php:
-    image: operrin/php:8.4.6
+    build:
+      context: .
+      dockerfile: Dockerfile
     ports:
-      - "88:80"
-    volumes :
+      - "89:80"
+    volumes:
       - ./public:/var/www/html
       - ./src:/var/www/src
     working_dir: /var/www/src
@@ -15,12 +17,11 @@ services:
       - app.net
     depends_on:
       - mysql
-    command: sh -c  "composer install&&php -S 0.0.0.0:80 -t /var/www/html"
 
   adminer:
     image: adminer:5.2.1
     ports:
-      - "8888:8080"
+      - "8889:8080"
     networks:
       - app.net
 
@@ -29,9 +30,9 @@ services:
     env_file:
       - .env
     ports:
-      - "3333:3306"
+      - "3334:3306"
     networks:
       - app.net
     volumes:
-      - ./sql/gift.schema.sql:/docker-entrypoint-initdb.d/01_schema.sql
-      - ./sql/gift.data.sql:/docker-entrypoint-initdb.d/02_data.sql
+      - ./sql/schemas.sql:/docker-entrypoint-initdb.d/01_schema.sql
+      - ./sql/data.sql:/docker-entrypoint-initdb.d/02_data.sql

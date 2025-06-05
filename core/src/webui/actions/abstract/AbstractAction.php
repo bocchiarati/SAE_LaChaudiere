@@ -1,6 +1,6 @@
 <?php
 
-namespace app\webui\actions\Abstract;
+namespace App\webui\actions\Abstract;
 
 use Slim\Psr7\Request;
 use Slim\Psr7\Response;

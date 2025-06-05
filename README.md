@@ -9,4 +9,3 @@
 - BENA Hugo
 - LEVEQUE Tuline
 - REIGNIER Eloi
-- .... Nathan

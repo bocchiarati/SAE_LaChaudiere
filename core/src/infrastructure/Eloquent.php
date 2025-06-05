@@ -7,7 +7,7 @@
  * @author: canals
  */
 
-namespace app\infrastructure;
+namespace App\infrastructure;
 
 use Illuminate\Database\Capsule\Manager as DB;
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace app\webui\providers\interfaces;
+namespace App\webui\providers\interfaces;
 
 interface AuthnProviderInterface {
     public function getSignedInUser(): ?array;

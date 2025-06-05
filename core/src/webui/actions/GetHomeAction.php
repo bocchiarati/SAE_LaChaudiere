@@ -1,6 +1,6 @@
 <?php
 
-namespace App\webui\actions;
+namespace app\webui\actions;
 
 
 use App\webui\actions\Abstract\AbstractAction;
@@ -14,6 +14,6 @@ use Slim\Views\Twig;
 class GetHomeAction extends AbstractAction {
     public function __invoke(Request $request, Response $response, array $args) {
         $twig = Twig::fromRequest($request);
-        return $twig->render($response,'home/index.html.twig');
+        return $twig->render($response,'home/event.html.twig');
     }
 }

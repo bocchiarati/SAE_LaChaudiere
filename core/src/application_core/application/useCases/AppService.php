@@ -15,4 +15,18 @@ class AppService implements AppServiceInterface{
             throw new DatabaseException("Erreur lors de la récupération de la catégorie par son identifiant.");
         }
     }
+
+    public function creerCategory(string $libelle, string $description): array{
+        try{
+            $category = new Category();
+            $category->label = $libelle;
+            $category->description = $description;
+
+            $category->save();
+
+            return $category->toArray();
+        } catch(\Exception $e) {
+            throw new DatabaseException("Erreur lors de la création de la box vide: " . $e->getMessage());
+        }
+    }
 }

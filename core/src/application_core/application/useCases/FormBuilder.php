@@ -147,4 +147,29 @@ class FormBuilder implements FormBuilderInterface {
             'csrf_token' => $this->csrfTokenProvider->generate()
         ];
     }
+
+    public function buildCategoriesForm(): array {
+        return [
+            'actionRoute' => 'post_create_category_perso',
+            'submit_button' => "Ajouter la categorie",
+            'links' => [],
+            'inputs' => [
+                [
+                    'name' => 'libelle',
+                    'label' => 'libelle',
+                    'type' => 'text',
+                    'placeholder' => 'Exposition',
+                    'required' => true
+                ],
+                [
+                    'name' => 'description',
+                    'label' => 'description',
+                    'type' => 'text',
+                    'placeholder' => 'Je suis une description de la categorie',
+                    "required" => true,
+                ]
+            ],
+            'selects' => []
+        ];
+    }
 }

@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 
 class Category extends Model {
-    protected $table = 'category';
+    protected $table = 'Category';
 
     public $timestamps = false;
     protected $fillable = ['label', 'description'];

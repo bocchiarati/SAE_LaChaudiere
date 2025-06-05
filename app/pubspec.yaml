@@ -31,6 +31,10 @@ dependencies:
   flutter:
     sdk: flutter
   faker: ^2.1.0
+  provider: ^6.0.5
+  flutter_dotenv: ^5.0.2
+  cupertino_icons: ^1.0.8
+
 
 dev_dependencies:
   flutter_test:
@@ -95,6 +99,7 @@ flutter_icons:
   image_path: "assets/splash.png"
   adaptive_icon_background: "#FFFFFF"
   adaptive_icon_foreground: "assets/splash.png"
+
 
 flutter_native_splash:
   color: "#FFFFFF"

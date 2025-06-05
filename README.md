@@ -3,7 +3,7 @@ Repo GIT de la SAE S4 DWM "La Chaudière"
 
 ---
 
-## Groupe 
+## 👥 Groupe 
 
 - CHERCHARI Sofien
 - BENA Hugo

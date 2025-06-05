@@ -1,6 +1,6 @@
 <?php
 
-namespace App\application_core\application\useCases\interfaces;
+namespace app\application_core\application\useCases\interfaces;
 
 interface FormBuilderInterface {
     public function buildSignInForm(): array;

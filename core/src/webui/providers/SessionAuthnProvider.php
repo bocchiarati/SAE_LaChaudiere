@@ -2,7 +2,7 @@
 
 namespace App\webui\providers;
 
-use App\application_core\application\useCases\interfaces\AuthnServiceInterface;
+use app\application_core\application\useCases\interfaces\AuthnServiceInterface;
 use App\application_core\domain\entities\User;
 use App\webui\providers\interfaces\AuthnProviderInterface;
 

@@ -2,7 +2,7 @@
 
 namespace App\application_core\application\useCases;
 
-use App\application_core\application\useCases\interfaces\AuthnServiceInterface;
+use app\application_core\application\useCases\interfaces\AuthnServiceInterface;
 use App\application_core\domain\entities\User;
 use MongoDB\Driver\Exception\AuthenticationException;
 

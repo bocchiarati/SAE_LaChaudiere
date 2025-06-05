@@ -3,8 +3,14 @@
 namespace App\application_core\application\useCases;
 
 use App\application_core\application\useCases\interfaces\FormBuilderInterface;
+use App\webui\providers\interfaces\CsrfTokenProviderInterface;
 
 class FormBuilder implements FormBuilderInterface {
+    private CsrfTokenProviderInterface $csrfTokenProvider;
+    public function __construct(CsrfTokenProviderInterface $csrfTokenProvider) {
+        $this->csrfTokenProvider = $csrfTokenProvider;
+    }
+
     public function buildSignInForm(): array {
         return [
             'actionRoute' => 'post_signin',
@@ -31,7 +37,8 @@ class FormBuilder implements FormBuilderInterface {
                     "required" => true,
                 ]
             ],
-            'selects' => []
+            'selects' => [],
+            'csrf_token' => $this->csrfTokenProvider->generate()
         ];
     }
 
@@ -68,7 +75,8 @@ class FormBuilder implements FormBuilderInterface {
                     "required" => true,
                 ]
             ],
-            'selects' => []
+            'selects' => [],
+            'csrf_token' => $this->csrfTokenProvider->generate()
         ];
     }
 }

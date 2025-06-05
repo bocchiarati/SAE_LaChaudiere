@@ -17,8 +17,8 @@ COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 WORKDIR /var/www/src
 
 # Copy code (this will be overridden by volumes in docker-compose)
-COPY ./public /var/www/html
-COPY ./src /var/www/src
+COPY public /var/www/html
+COPY src /var/www/src
 
 # Expose port 80
 EXPOSE 80

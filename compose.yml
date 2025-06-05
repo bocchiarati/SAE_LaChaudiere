@@ -5,13 +5,13 @@ networks:
 services:
   php:
     build:
-      context: .
+      context: ./core
       dockerfile: Dockerfile
     ports:
       - "89:80"
     volumes:
-      - ./public:/var/www/html
-      - ./src:/var/www/src
+      - ./core/public:/var/www/html
+      - ./core/src:/var/www/src
     working_dir: /var/www/src
     networks:
       - app.net
@@ -28,11 +28,11 @@ services:
   mysql:
     image: mysql:8.0
     env_file:
-      - .env
+      - core/.env
     ports:
       - "3334:3306"
     networks:
       - app.net
     volumes:
-      - ./sql/schemas.sql:/docker-entrypoint-initdb.d/01_schema.sql
-      - ./sql/data.sql:/docker-entrypoint-initdb.d/02_data.sql
+      - ./core/sql/schemas.sql:/docker-entrypoint-initdb.d/01_schema.sql
+      - ./core/sql/data.sql:/docker-entrypoint-initdb.d/02_data.sql

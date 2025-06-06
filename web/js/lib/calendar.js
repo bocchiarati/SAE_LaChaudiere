@@ -1,53 +1,43 @@
 import {load_event} from "../views/event_ui.js";
+import {getRessource} from "./api_loader.js";
+import {category_filtre_action} from "../controller/category_filtre_action.js";
 
 export function initCalendar() {
-    fetch('http://127.0.0.1:89/api/categories')
-        .then(response => response.json())
-        .then(data => console.log(data))
+
+
     const calendarEl = document.getElementById('calendar');
     const calendar = new FullCalendar.Calendar(calendarEl, {
         initialView: 'dayGridMonth',
         locale: 'fr',
         eventColor: '#e11d48', // Couleur par défaut (rose-600 Tailwind)
         eventTextColor: '#ffffff', // Texte blanc
-        events: [
-            {
-                title: 'Concert Jazz',
-                start: '2025-06-15',
-                description: 'Un concert de jazz avec des artistes locaux',
-            },
-            {
-                title: 'Concert Rock',
-                start: '2025-06-25',
-                description: 'Groupe de rock alternatif en live',
-            },
-
-            {
-                title: 'Exposition Peinture',
-                start: '2025-06-20',
-                description: 'Œuvres contemporaines de jeunes artistes',
-            },
-
-            {
-                title: 'Spectacle Théâtre',
-                start: '2025-06-28',
-                description: 'Représentation d’une pièce classique',
-            },
-
-            {
-                title: 'Conférence “Art et Politique”',
-                start: '2025-06-18',
-                description: 'Rencontre avec des penseurs contemporains',
-            }
-        ],
-        eventClick: function(info) {
+        events: [],
+        eventClick: function (info) {
             load_event()
         }
     });
-
     calendar.render();
+    loadEvents("/api/events", calendar);
+    category_filtre_action(calendar);
 }
 
-export function loadEvents() {
-    // À implémenter plus tard pour charger les données dynamiquement via API
+export async function loadEvents(url, calendar) {
+    const events = (await getRessource(url)).events;
+    events.forEach(event => {
+        calendar.addEvent({
+            'title': event.title,
+            'description': event.description,
+            'start':formatDate(event.start),
+            'end':formatDate(event.end),
+        });
+    })
 }
+
+function formatDate(dateStr) {
+    // Vérifie si la date contient déjà un "T"
+    if (dateStr.includes('T')) return dateStr;
+
+    // Remplace l'espace entre la date et l'heure par un "T"
+    return dateStr.replace(' ', 'T');
+}
+

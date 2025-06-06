@@ -1,0 +1,25 @@
+<?php
+
+namespace App\webui\actions\API;
+
+use App\application_core\application\useCases\interfaces\AppServiceInterface;
+use App\webui\actions\Abstract\AbstractAction;
+use Slim\Psr7\Request;
+use Slim\Psr7\Response;
+
+class GetEventsApiAction extends AbstractAction {
+    private AppServiceInterface $appService;
+    public function __construct(AppServiceInterface $appService)
+    {
+        $this->appService = $appService;
+    }
+    public function __invoke(Request $request, Response $response, array $args) {
+
+        $data = [ 'type' => 'resource',
+            'categories' => $this->appService->getCategories() ];
+        $response->getBody()->write(json_encode($data));
+        return
+            $response->withHeader('Content-Type','application/json')
+                ->withStatus(200);
+    }
+}

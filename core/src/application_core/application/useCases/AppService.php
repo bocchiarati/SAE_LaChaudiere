@@ -11,7 +11,7 @@ class AppService implements AppServiceInterface{
 
     public function getCategories(): array{
         try{
-            return Category::all()->toArray();
+            return Category::with("evenements")->get()->toArray();
         } catch(\Throwable $e){
             throw new DatabaseException("Erreur lors de la récupération de toutes les Categories.");
         }

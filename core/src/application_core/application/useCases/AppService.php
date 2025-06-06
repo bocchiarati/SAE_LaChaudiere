@@ -60,6 +60,20 @@ class AppService implements AppServiceInterface{
         }
     }
 
+    public function getEventsSortByDate(): array {
+        try {
+            return Event::with('category')
+                ->orderBy('start_date', 'asc')
+                ->get()
+                ->groupBy((function ($event) {
+                    return \Carbon\Carbon::parse($event->start_date)->format('Y-m-d');
+                }))
+                ->toArray();
+        } catch (\Throwable $e) {
+            throw new DatabaseException("Erreur lors de la récupération des évenements par date croissante");
+        }
+    }
+
     public function creerCategory(string $libelle, string $description): array{
         try{
             $category = new Category();
@@ -70,11 +84,11 @@ class AppService implements AppServiceInterface{
 
             return $category->toArray();
         } catch(\Exception $e) {
-            throw new DatabaseException("Erreur lors de l'insertion de la Catgory " . $e->getMessage());
+            throw new DatabaseException("Erreur lors de l'insertion de la catégorie " . $e->getMessage());
         }
     }
 
-    public function createEvent(String $title, String $description, float $price, String $start_date, ?String $end_date, ?String $time, int $category_id, bool $is_published, String $user_id): array {
+    public function createEvent(String $title, String $description, float $price, String $start_date, ?String $end_date, int $category_id, bool $is_published, String $user_id): array {
         try {
             $event = new Event();
             $event->title = $title;

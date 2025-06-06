@@ -32,7 +32,7 @@ class Event extends Model {
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function categorie() {
+    public function category() {
         return $this->belongsTo(Category::class, "category_id");
     }
     public function images() {

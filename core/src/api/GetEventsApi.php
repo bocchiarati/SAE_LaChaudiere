@@ -1,13 +1,13 @@
 <?php
 
-namespace App\webui\actions\api;
+namespace App\api;
 
+use App\api\abstract\AbstractApi;
 use App\application_core\application\useCases\interfaces\AppServiceInterface;
-use App\webui\actions\Abstract\AbstractAction;
 use Slim\Psr7\Request;
 use Slim\Psr7\Response;
 
-class GetEventsApiAction extends AbstractAction {
+class GetEventsApi extends AbstractApi {
     private AppServiceInterface $appService;
     public function __construct(AppServiceInterface $appService) {
         $this->appService = $appService;

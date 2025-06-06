@@ -1,9 +1,9 @@
 <?php
 
-use App\webui\actions\api\GetCategoriesApiAction;
-use App\webui\actions\api\GetCategoryEventsApiAction;
-use App\webui\actions\api\GetEventByIdApiAction;
-use App\webui\actions\api\GetEventsApiAction;
+use App\api\GetCategoriesApi;
+use App\api\GetCategoryEventsApi;
+use App\api\GetEventByIdApi;
+use App\api\GetEventsApi;
 use App\webui\actions\CreerCategorie\GetCategoryPersoAction;
 use App\webui\actions\CreerCategorie\PostCategoryPersoAction;
 use App\webui\actions\GetCreateEventAction;
@@ -30,13 +30,13 @@ return function ($app) {
         ->setName('post_create_category_perso');
 
     //-----------API-----------//
-    $app->get("/api/categories", GetCategoriesApiAction::class)
+    $app->get("/api/categories", GetCategoriesApi::class)
         ->setName('api_categories');
-    $app->get("/api/events", GetEventsApiAction::class)
+    $app->get("/api/events", GetEventsApi::class)
         ->setName('api_events');
-    $app->get("/api/category/{category_id}/events", GetCategoryEventsApiAction::class)
+    $app->get("/api/category/{category_id}/events", GetCategoryEventsApi::class)
         ->setName('api_category_events');
-    $app->get("/api/event/{id}", GetEventByIdApiAction::class)
+    $app->get("/api/event/{id}", GetEventByIdApi::class)
         ->setName("api_event_by_id");
     return $app;
 };

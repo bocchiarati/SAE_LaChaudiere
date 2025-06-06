@@ -52,7 +52,7 @@ class AppService implements AppServiceInterface{
 
     public function getEventById($id): array {
         try {
-            return Event::where("id", "=", $id)
+            return Event::with("images")->where("id", "=", $id)
                 ->first()
                 ->toArray();
         } catch (\Throwable $e) {

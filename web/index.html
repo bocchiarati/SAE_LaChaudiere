@@ -40,7 +40,8 @@
         <!-- Main content -->
         <main class="max-w-7xl mx-auto p-4 space-y-10">
             <section class="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow border-l-4 border-rose-600 dark:border-rose-400">
-                <div id="content"></div>
+                <div id="calendar_container"></div>
+                <div id="event_detail_container"></div>
             </section>
         </main>
 
@@ -51,6 +52,15 @@
 
         <!-- Templates -->
         <script id="calendarTemplate" type="text/x-handlebars-template">
+            <div class="flex flex-wrap gap-2 mb-4">
+                {{#each categories}}
+                <button id="{{this.id}}"
+                        class="category_button px-4 py-2 text-sm font-medium rounded-full border border-rose-600 text-rose-700 bg-rose-100 hover:bg-rose-200 dark:bg-gray-800 dark:text-rose-400 dark:border-rose-400 dark:hover:bg-gray-700 transition">
+                    {{this.label}}
+                </button>
+                {{/each}}
+            </div>
+
             <div id="calendar" class="bg-white dark:bg-gray-700 rounded-xl shadow p-4"></div>
         </script>
 

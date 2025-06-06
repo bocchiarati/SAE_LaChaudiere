@@ -15,8 +15,8 @@ class GetCategoriesApiAction extends AbstractAction {
     }
     public function __invoke(Request $request, Response $response, array $args) {
         $categories = $this->appService->getCategories();
-        foreach($categories as $category) {
-            $category["events"]["url"] = $request->getUri()->getScheme() . '://' . $request->getUri()->getHost() . '/api/category/' . $category["id"] . "/events";
+        foreach($categories as &$category) {
+            $category["events"]["url"] =  '/api/category/' . $category["id"] . "/events";
         }
 
         $data = [

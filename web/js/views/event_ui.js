@@ -18,5 +18,5 @@ export function load_event() {
     };
 
     // Insertion du HTML généré dans l'élément avec l'ID "content"
-    document.getElementById("content").innerHTML = template(eventData);
+    document.getElementById("event_detail_container").innerHTML = template(eventData);
 }

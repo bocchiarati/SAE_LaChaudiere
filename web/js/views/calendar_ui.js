@@ -7,7 +7,9 @@ export function load_calendar() {
     // Compilation du template avec les données
     const template = Handlebars.compile(source);
     // Insertion du HTML généré dans l'élément avec l'ID "content"
-    document.getElementById("content").innerHTML = template({});
+    document.getElementById("calendar_container").innerHTML = template({
+        categories: categories
+    });
 
     initCalendar();
 }

@@ -1,0 +1,30 @@
+<div class="flex min-h-screen">
+    <div class="w-64 bg-red-500 text-white p-6 shadow-lg fixed inset-y-0 left-0 z-10">
+        <a href="{{ url_for('homepage') }}">
+            🔥 LA CHAUDIERE
+        </a>
+    <hr class="border-red-300 mb-3 mt-2" />
+        <nav>
+            <ul class="space-y-3">
+                <li>
+                    <a href="{{ url_for('homepage') }}"
+                       class="flex items-center gap-2 px-3 py-2 rounded hover:bg-red-600 transition">
+                        🏠 Accueil
+                    </a>
+                    <a href="{{ url_for('create_category_perso') }}"
+                       class="flex items-center gap-2 px-3 py-2 rounded hover:bg-red-600 transition">
+                        🏷️ Créer une catégorie
+                    </a>
+                    <a href="{{ url_for('create_event') }}"
+                       class="flex items-center gap-2 px-3 py-2 rounded hover:bg-red-600 transition">
+                        🎉 Créer un événement
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+    <div class="flex-1 ml-64 p-8">
+        {% block body %}
+        {% endblock %}
+    </div>
+</div>

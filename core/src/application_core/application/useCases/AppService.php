@@ -6,6 +6,7 @@ use App\application_core\application\exceptions\DatabaseException;
 use App\application_core\application\useCases\interfaces\AppServiceInterface;
 use App\application_core\domain\entities\Category;
 use App\application_core\domain\entities\Event;
+use App\application_core\domain\entities\User;
 
 class AppService implements AppServiceInterface{
 
@@ -36,6 +37,14 @@ class AppService implements AppServiceInterface{
             return $category->toArray();
         } catch(\Exception $e) {
             throw new DatabaseException("Erreur lors de l'insertion de la Catgory " . $e->getMessage());
+        }
+    }
+
+    public function getUser(string $email): array{
+        try{
+            return User::where("email", "=", $email)->first()->toArray();
+        } catch(\Exception $e) {
+            throw new DatabaseException("Erreur lors du chargement d'un utilisateur " . $e->getMessage());
         }
     }
 

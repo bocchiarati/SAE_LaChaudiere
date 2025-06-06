@@ -19,6 +19,12 @@
                        class="flex items-center gap-2 px-3 py-2 rounded hover:bg-red-600 transition">
                         🎉 Créer un événement
                     </a>
+                    {% if user %}
+                        <a href="{{ url_for("signout") }}" class="flex items-center gap-2 px-3 py-2 rounded hover:bg-red-600 transition">Déconnexion</a>
+                    {% else %}
+                        <a href="{{ url_for("signin") }}" class="flex items-center gap-2 px-3 py-2 rounded hover:bg-red-600 transition">Connexion</a>
+                        <a href="{{ url_for("creer_compte") }}" class="flex items-center gap-2 px-3 py-2 rounded hover:bg-red-600 transition">S'enregistrer</a>
+                    {% endif %}
                 </li>
             </ul>
         </nav>

@@ -19,12 +19,7 @@ class FormBuilder implements FormBuilderInterface {
         return [
             'actionRoute' => 'post_signin',
             'submit_button' => "Se connecter",
-            'links' => [
-                [
-                    "label" => "Pas encore de compte ? Créez en un dès maintenant !",
-                    "route" => "creer_compte"
-                ]
-            ],
+            'links' => [],
             'inputs' => [
                 [
                     'name' => 'email',

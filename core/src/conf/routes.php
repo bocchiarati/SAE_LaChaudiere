@@ -5,6 +5,7 @@ use App\webui\actions\API\GetEventsApiAction;
 use App\webui\actions\CreerCategorie\GetCategoryPersoAction;
 use App\webui\actions\CreerCategorie\PostCategoryPersoAction;
 use App\webui\actions\GetCreateEventAction;
+use App\webui\actions\GetEventsAction;
 use App\webui\actions\GetHomeAction;
 use App\webui\actions\PostCreateEventAction;
 
@@ -17,6 +18,8 @@ return function ($app) {
         ->setName('create_event');
     $app->get('/create-category-perso', GetCategoryPersoAction::class)
         ->setName('create_category_perso');
+    $app->get('/events', GetEventsAction::class)
+        ->setName('events');
 
     //-----------POST-----------//
     $app->post('/create-event', PostCreateEventAction::class)

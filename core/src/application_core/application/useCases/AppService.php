@@ -25,6 +25,14 @@ class AppService implements AppServiceInterface{
         }
     }
 
+    public function getEventsSortByDate(): array {
+        try {
+            return Event::with('category')->orderBy('start_date', 'asc')->get()->groupBy('start_date')->toArray();
+        } catch (\Throwable $e) {
+            throw new DatabaseException("Erreur lors de la récupération des évenements par date croissante");
+        }
+    }
+
     public function creerCategory(string $libelle, string $description): array{
         try{
             $category = new Category();
@@ -35,7 +43,7 @@ class AppService implements AppServiceInterface{
 
             return $category->toArray();
         } catch(\Exception $e) {
-            throw new DatabaseException("Erreur lors de l'insertion de la Catgory " . $e->getMessage());
+            throw new DatabaseException("Erreur lors de l'insertion de la catégorie " . $e->getMessage());
         }
     }
 

@@ -1,0 +1,29 @@
+<?php
+
+namespace App\api;
+
+use App\api\abstract\AbstractApi;
+use App\application_core\application\useCases\interfaces\AppServiceInterface;
+use Slim\Psr7\Request;
+use Slim\Psr7\Response;
+
+class GetEventByIdApi extends AbstractApi {
+    private AppServiceInterface $appService;
+    public function __construct(AppServiceInterface $appService) {
+        $this->appService = $appService;
+    }
+    public function __invoke(Request $request, Response $response, array $args) {
+        $data = [
+            'type' => 'resource',
+            'event' => $this->appService->getEventById($args['id'])
+        ];
+
+        $response->getBody()->write(json_encode($data));
+        return $response
+            ->withHeader('Content-Type', 'application/json')
+            ->withHeader('Access-Control-Allow-Origin', '*') // CORS
+            ->withHeader('Access-Control-Allow-Headers', 'Content-Type, Accept, Origin, Authorization')
+            ->withHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS')
+            ->withStatus(200);
+    }
+}

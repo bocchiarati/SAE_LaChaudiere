@@ -1,13 +1,13 @@
 <?php
 
-namespace App\webui\actions\API;
+namespace App\api;
 
+use App\api\abstract\AbstractApi;
 use App\application_core\application\useCases\interfaces\AppServiceInterface;
-use App\webui\actions\Abstract\AbstractAction;
 use Slim\Psr7\Request;
 use Slim\Psr7\Response;
 
-class GetCategoriesApiAction extends AbstractAction {
+class GetCategoriesApi extends AbstractApi {
     private AppServiceInterface $appService;
     public function __construct(AppServiceInterface $appService)
     {
@@ -15,8 +15,8 @@ class GetCategoriesApiAction extends AbstractAction {
     }
     public function __invoke(Request $request, Response $response, array $args) {
         $categories = $this->appService->getCategories();
-        foreach($categories as $category) {
-            $category["events"]["url"] = $request->getUri()->getScheme() . '://' . $request->getUri()->getHost() . '/api/category/' . $category["id"] . "/events";
+        foreach($categories as &$category) {
+            $category["events"]["url"] =  '/api/category/' . $category["id"] . "/events";
         }
 
         $data = [
@@ -29,7 +29,7 @@ class GetCategoriesApiAction extends AbstractAction {
             ->withHeader('Content-Type', 'application/json')
             ->withHeader('Access-Control-Allow-Origin', '*') // CORS
             ->withHeader('Access-Control-Allow-Headers', 'Content-Type, Accept, Origin, Authorization')
-            ->withHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS')
+            ->withHeader('Access-Control-Allow-Methods', 'GET')
             ->withStatus(200);
     }
 

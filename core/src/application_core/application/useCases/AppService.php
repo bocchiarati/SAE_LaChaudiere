@@ -18,11 +18,60 @@ class AppService implements AppServiceInterface{
         }
     }
 
-    public function getEventsByCategory($category_id): array{
+    public function getEvents(): array{
         try {
-            return Event::where("category_id", "=", $category_id)->get()->toArray();
+            return Event::select([
+                'id',
+                'title',
+                'description',
+                'start_date as start',
+                'end_date as end'
+            ])
+                ->get()
+                ->toArray();
         } catch (\Throwable $e) {
             throw new DatabaseException("Erreur lors de la récupération des évenements d'une catégorie");
+        }
+    }
+
+    public function getEventsByCategory($category_id): array{
+        try {
+            return Event::where("category_id", "=", $category_id)
+                ->select([
+                'id',
+                'title',
+                'description',
+                'start_date as start',
+                'end_date as end'
+            ])
+                ->get()
+                ->toArray();
+        } catch (\Throwable $e) {
+            throw new DatabaseException("Erreur lors de la récupération des évenements d'une catégorie");
+        }
+    }
+
+    public function getEventById($id): array {
+        try {
+            return Event::with("images", "category")->where("id", "=", $id)
+                ->first()
+                ->toArray();
+        } catch (\Throwable $e) {
+            throw new DatabaseException("Erreur lors de la récupération des évenements d'une catégorie");
+        }
+    }
+
+    public function getEventsSortByDate(): array {
+        try {
+            return Event::with('category')
+                ->orderBy('start_date', 'asc')
+                ->get()
+                ->groupBy((function ($event) {
+                    return \Carbon\Carbon::parse($event->start_date)->format('Y-m-d');
+                }))
+                ->toArray();
+        } catch (\Throwable $e) {
+            throw new DatabaseException("Erreur lors de la récupération des évenements par date croissante");
         }
     }
 
@@ -36,7 +85,7 @@ class AppService implements AppServiceInterface{
 
             return $category->toArray();
         } catch(\Exception $e) {
-            throw new DatabaseException("Erreur lors de l'insertion de la Catgory " . $e->getMessage());
+            throw new DatabaseException("Erreur lors de l'insertion de la catégorie " . $e->getMessage());
         }
     }
 
@@ -48,7 +97,7 @@ class AppService implements AppServiceInterface{
         }
     }
 
-    public function createEvent(String $title, String $description, float $price, String $start_date, ?String $end_date, ?String $time, int $category_id, bool $is_published, String $user_id): array {
+    public function createEvent(String $title, String $description, float $price, String $start_date, ?String $end_date, int $category_id, bool $is_published, String $user_id): array {
         try {
             $event = new Event();
             $event->title = $title;

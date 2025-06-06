@@ -29,7 +29,7 @@ return function ($app) {
     $app->get("/api/categories", GetCategoriesApiAction::class)
         ->setName('api_categories');
     $app->get("/api/events", GetEventsApiAction::class)
-        ->setName('api_categories');
+        ->setName('api_events');
     $app->get("/api/category/{category_id}/events", GetCategoryEventsApiAction::class)
         ->setName('api_category_events');
     return $app;

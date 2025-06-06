@@ -4,8 +4,6 @@ use App\api\GetCategoriesApi;
 use App\api\GetCategoryEventsApi;
 use App\api\GetEventByIdApi;
 use App\api\GetEventsApi;
-use App\webui\actions\API\GetCategoriesApiAction;
-use App\webui\actions\API\GetEventsApiAction;
 use App\webui\actions\auth\GetSigninAction;
 use App\webui\actions\auth\PostSigninAction;
 use App\webui\actions\CreerCategorie\GetCategoryPersoAction;

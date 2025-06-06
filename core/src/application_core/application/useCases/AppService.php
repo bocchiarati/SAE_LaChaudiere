@@ -27,7 +27,13 @@ class AppService implements AppServiceInterface{
 
     public function getEventsSortByDate(): array {
         try {
-            return Event::with('category')->orderBy('start_date', 'asc')->get()->groupBy('start_date')->toArray();
+            return Event::with('category')
+                ->orderBy('start_date', 'asc')
+                ->get()
+                ->groupBy((function ($event) {
+                    return \Carbon\Carbon::parse($event->start_date)->format('Y-m-d');
+                }))
+                ->toArray();
         } catch (\Throwable $e) {
             throw new DatabaseException("Erreur lors de la récupération des évenements par date croissante");
         }
@@ -47,7 +53,7 @@ class AppService implements AppServiceInterface{
         }
     }
 
-    public function createEvent(String $title, String $description, float $price, String $start_date, ?String $end_date, ?String $time, int $category_id, bool $is_published, String $user_id): array {
+    public function createEvent(String $title, String $description, float $price, String $start_date, ?String $end_date, int $category_id, bool $is_published, String $user_id): array {
         try {
             $event = new Event();
             $event->title = $title;

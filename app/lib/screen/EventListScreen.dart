@@ -4,6 +4,7 @@ import '../service/event_service.dart';
 import '../widget/event_search_bar.dart';
 import '../widget/event_list.dart';
 import '../modele/event.dart';
+import 'EventDetailScreen.dart';
 
 class EventListScreen extends StatefulWidget {
   const EventListScreen({super.key});
@@ -52,7 +53,17 @@ class _EventListScreenState extends State<EventListScreen> {
                     return event.title.toLowerCase().contains(searchQuery.toLowerCase());
                   }).toList();
 
-                  return EventList(events: filteredEvents);
+                  return EventList(
+                    events: filteredEvents,
+                    onEventTap: (event) {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => EventDetailScreen(event: event),
+                        ),
+                      );
+                    },
+                  );
                 }
               },
             ),

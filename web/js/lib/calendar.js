@@ -1,8 +1,10 @@
 import {load_event} from "../views/event_ui.js";
 
 export function initCalendar() {
+    fetch('http://127.0.0.1:89/api/categories')
+        .then(response => response.json())
+        .then(data => console.log(data))
     const calendarEl = document.getElementById('calendar');
-
     const calendar = new FullCalendar.Calendar(calendarEl, {
         initialView: 'dayGridMonth',
         locale: 'fr',

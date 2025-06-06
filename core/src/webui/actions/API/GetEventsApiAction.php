@@ -14,12 +14,18 @@ class GetEventsApiAction extends AbstractAction {
         $this->appService = $appService;
     }
     public function __invoke(Request $request, Response $response, array $args) {
+        $data = [
+            'type' => 'resource',
+            'categories' => $this->appService->getCategories()
+        ];
 
-        $data = [ 'type' => 'resource',
-            'categories' => $this->appService->getCategories() ];
         $response->getBody()->write(json_encode($data));
-        return
-            $response->withHeader('Content-Type','application/json')
-                ->withStatus(200);
+        return $response
+            ->withHeader('Content-Type', 'application/json')
+            ->withHeader('Access-Control-Allow-Origin', '*') // CORS
+            ->withHeader('Access-Control-Allow-Headers', 'Content-Type, Accept, Origin, Authorization')
+            ->withHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS')
+            ->withStatus(200);
     }
+
 }

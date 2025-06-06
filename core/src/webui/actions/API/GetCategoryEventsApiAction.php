@@ -7,7 +7,7 @@ use App\webui\actions\Abstract\AbstractAction;
 use Slim\Psr7\Request;
 use Slim\Psr7\Response;
 
-class GetEventsApiAction extends AbstractAction {
+class GetCategoryEventsApiAction extends AbstractAction {
     private AppServiceInterface $appService;
     public function __construct(AppServiceInterface $appService) {
         $this->appService = $appService;
@@ -15,7 +15,7 @@ class GetEventsApiAction extends AbstractAction {
     public function __invoke(Request $request, Response $response, array $args) {
         $data = [
             'type' => 'resource',
-            'events' => $this->appService->getEvents()
+            'events' => $this->appService->getEventsByCategory($args["category_id"])
         ];
 
         $response->getBody()->write(json_encode($data));

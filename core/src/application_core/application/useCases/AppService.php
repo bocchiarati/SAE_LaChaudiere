@@ -17,6 +17,14 @@ class AppService implements AppServiceInterface{
         }
     }
 
+    public function getEvents(): array{
+        try {
+            return Event::all()->toArray();
+        } catch (\Throwable $e) {
+            throw new DatabaseException("Erreur lors de la récupération des évenements d'une catégorie");
+        }
+    }
+
     public function getEventsByCategory($category_id): array{
         try {
             return Event::where("category_id", "=", $category_id)->get()->toArray();

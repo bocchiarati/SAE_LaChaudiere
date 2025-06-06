@@ -31,16 +31,15 @@ class AppService implements AppServiceInterface{
         }
     }
 
-    public function createEvent(String $title, String $description, int $price, String $start_date, String $end_date, String $time, int $category_id, bool $is_published, int $user_id): array {
+    public function createEvent(String $title, String $description, int $price, String $start_date, ?String $end_date, ?String $time, int $category_id, bool $is_published, String $user_id): array {
         try {
             $event = new Event();
-            $event->id = \Ramsey\Uuid\Uuid::uuid4()->toString();
             $event->title = $title;
             $event->description = $description;
             $event->price = $price;
             $event->start_date = $start_date;
-            $event->end_date = $end_date;
-            $event->time = $time;
+            $event->end_date = empty($end_date) ? null : $end_date;
+            $event->time = empty($time) ? null : $time;
             $event->category_id = $category_id;
             $event->is_published = $is_published;
             $event->user_id = $user_id;
@@ -49,8 +48,9 @@ class AppService implements AppServiceInterface{
 
             return $event->toArray();
         } catch (\Exception $e) {
-            throw new DatabaseException("Erreur lors de la création de la box vide: " . $e->getMessage());
+            throw new DatabaseException("Erreur lors de la création de l'événement : " . $e->getMessage());
         }
     }
+
 
 }

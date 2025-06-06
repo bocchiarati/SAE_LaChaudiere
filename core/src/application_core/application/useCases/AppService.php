@@ -39,11 +39,11 @@ class AppService implements AppServiceInterface{
         }
     }
 
-    public function createEvent(String $title, String $description, int $price, String $start_date, ?String $end_date, ?String $time, int $category_id, bool $is_published, String $user_id): array {
+    public function createEvent(String $title, String $description, float $price, String $start_date, ?String $end_date, ?String $time, int $category_id, bool $is_published, String $user_id): array {
         try {
             $event = new Event();
             $event->title = $title;
-            $event->description = $description;
+            $event->description = empty($description) ? null : $description;
             $event->price = $price;
             $event->start_date = $start_date;
             $event->end_date = empty($end_date) ? null : $end_date;

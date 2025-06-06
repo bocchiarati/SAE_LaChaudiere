@@ -12,21 +12,21 @@ class AppService implements AppServiceInterface{
         try{
             return Category::all()->toArray();
         } catch(\Throwable $e){
-            throw new DatabaseException("Erreur lors de la récupération de la catégorie par son identifiant.");
+            throw new DatabaseException("Erreur lors de la récupération de toutes les Categories.");
         }
     }
 
     public function creerCategory(string $libelle, string $description): array{
         try{
             $category = new Category();
-            $category->label = $libelle;
-            $category->description = $description;
+            $category->label = '##' . $libelle;
+            $category->description = '**' . $description . '**';
 
             $category->save();
 
             return $category->toArray();
         } catch(\Exception $e) {
-            throw new DatabaseException("Erreur lors de la création de la box vide: " . $e->getMessage());
+            throw new DatabaseException("Erreur lors de l'insertion de la Catgory " . $e->getMessage());
         }
     }
 }

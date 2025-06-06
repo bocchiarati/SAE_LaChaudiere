@@ -117,7 +117,8 @@ class FormBuilder implements FormBuilderInterface {
                     'type' => 'number',
                     'placeholder' => 'Prix de l\'événement',
                     "required" => false,
-                    'step' => 0.01
+                    'step' => 0.01,
+                    'min' => 0
                 ],
                 [
                     'name' => 'start_date',

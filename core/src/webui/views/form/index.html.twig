@@ -37,6 +37,7 @@
                                 value="{{ input.value|default('') }}"
                                 {% if input.placeholder %}placeholder="{{ input.placeholder }}"{% endif %}
                                 {% if input.step is defined %}step="{{ input.step }}"{% endif %}
+                                {% if input.min is defined %}min="{{ input.min }}"{% endif %}
                                 {% if input.required == true %} required{% endif %}
                             />
                         {% endif %}

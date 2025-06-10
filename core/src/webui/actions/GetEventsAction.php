@@ -4,7 +4,9 @@ namespace App\webui\actions;
 
 
 use App\application_core\application\useCases\interfaces\AppServiceInterface;
+use App\application_core\application\useCases\interfaces\FormBuilderInterface;
 use App\webui\actions\Abstract\AbstractAction;
+use App\webui\providers\interfaces\CsrfTokenProviderInterface;
 use Slim\Psr7\Request;
 use Slim\Psr7\Response;
 use Slim\Views\Twig;
@@ -17,7 +19,7 @@ class GetEventsAction extends AbstractAction
 {
     private AppServiceInterface $appService;
 
-    public function __construct(AppServiceInterface $appService)
+    public function __construct(AppServiceInterface $appService, FormBuilderInterface $formBuilder, CsrfTokenProviderInterface $csrfProvider)
     {
         $this->appService = $appService;
     }
@@ -26,8 +28,11 @@ class GetEventsAction extends AbstractAction
     {
         $twig = Twig::fromRequest($request);
         $events = $this->appService->getEventsSortByDate();
+        $categories = $this->appService->getCategories();
+
         return $twig->render($response, 'event/index.html.twig', [
             "eventsByDate" => $events,
+            "categories" => $categories
         ]);
     }
 }

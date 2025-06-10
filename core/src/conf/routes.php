@@ -53,5 +53,6 @@ return function ($app) {
         ->setName('api_category_events');
     $app->get("/api/event/{id}", GetEventByIdApi::class)
         ->setName("api_event_by_id");
+
     return $app;
 };

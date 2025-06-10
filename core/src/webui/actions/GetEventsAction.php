@@ -29,12 +29,8 @@ class GetEventsAction extends AbstractAction
     public function __invoke(Request $request, Response $response, array $args)
     {
         $twig = Twig::fromRequest($request);
-        try{
-            $events = $this->appService->getEventsSortByDate();
-            $categories = $this->appService->getCategories();
-        } catch(DatabaseException $e) {
-            return $twig->render($response, 'error/index.html.twig', ["code" => 500, "message" => "Erreur interne du serveur, " . $e->getMessage() . " Veuillez essayer plus tard."]);
-        }
+        $events = $this->appService->getEventsSortByDate();
+        $categories = $this->appService->getCategories();
 
         return $twig->render($response, 'event/index.html.twig', [
             "eventsByDate" => $events,

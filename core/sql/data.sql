@@ -1,3 +1,9 @@
+SET NAMES utf8;
+SET time_zone = '+00:00';
+SET foreign_key_checks = 0;
+SET sql_mode = 'NO_AUTO_VALUE_ON_ZERO';
+
+
 -- Insert statements with corrected table and field names
 INSERT INTO User (id, email, password, role) VALUES
     ('a1b2c3d4-e5f6-7890-1234-56789abcdef0', 'alice@example.com', '$2y$10$uM2hV6Wz3yqKQZ3ZIrTBOuK8WLa6GVYppHTDbMwBt7k8RfiA/r1zC', 100),

@@ -1,3 +1,9 @@
+SET NAMES utf8;
+SET time_zone = '+00:00';
+SET foreign_key_checks = 0;
+SET sql_mode = 'NO_AUTO_VALUE_ON_ZERO';
+
+
 CREATE TABLE User (
                       id VARCHAR(50) PRIMARY KEY,
                       email VARCHAR(255) NOT NULL UNIQUE,

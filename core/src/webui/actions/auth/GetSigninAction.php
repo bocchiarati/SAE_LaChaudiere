@@ -3,7 +3,7 @@
 namespace App\webui\actions\auth;
 
 use App\application_core\application\useCases\interfaces\FormBuilderInterface;
-use App\webui\actions\Abstract\AbstractAction;
+use App\webui\actions\abstract\AbstractAction;
 use Slim\Psr7\Request;
 use Slim\Psr7\Response;
 use Slim\Views\Twig;

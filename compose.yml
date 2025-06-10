@@ -8,7 +8,7 @@ services:
       context: ./core
       dockerfile: Dockerfile
     ports:
-      - "89:80"
+      - "88888:80"
     volumes:
       - ./core/public:/var/www/html
       - ./core/src:/var/www/src
@@ -21,7 +21,7 @@ services:
   adminer:
     image: adminer:5.2.1
     ports:
-      - "8889:8080"
+      - "88889:8080"
     networks:
       - app.net
 
@@ -30,7 +30,7 @@ services:
     env_file:
       - core/.env
     ports:
-      - "3334:3306"
+      - "33333:3306"
     networks:
       - app.net
     volumes:

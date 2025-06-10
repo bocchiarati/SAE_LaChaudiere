@@ -2,7 +2,7 @@
 
 namespace App\webui\actions\auth;
 
-use App\webui\actions\Abstract\AbstractAction;
+use App\webui\actions\abstract\AbstractAction;
 use App\webui\providers\interfaces\AuthnProviderInterface;
 use Slim\Psr7\Request;
 use Slim\Psr7\Response;

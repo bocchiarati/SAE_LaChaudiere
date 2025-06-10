@@ -12,8 +12,9 @@ export function initCalendar() {
         eventColor: '#e11d48', // Couleur par défaut (rose-600 Tailwind)
         eventTextColor: '#ffffff', // Texte blanc
         events: [],
-        eventClick: function (info) {
-            load_event()
+        eventClick: async function (info) {
+            await load_event(info.event.id);
+            document.getElementById("calendar_container").classList.add("hidden");
         }
     });
     calendar.render();
@@ -25,6 +26,7 @@ export async function loadEvents(url, calendar) {
     const events = (await getRessource(url)).events;
     events.forEach(event => {
         calendar.addEvent({
+            'id':event.url,
             'title': event.title,
             'description': event.description,
             'start':formatDate(event.start),

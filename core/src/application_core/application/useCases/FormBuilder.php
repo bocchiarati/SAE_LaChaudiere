@@ -19,12 +19,7 @@ class FormBuilder implements FormBuilderInterface {
         return [
             'actionRoute' => 'post_signin',
             'submit_button' => "Se connecter",
-            'links' => [
-                [
-                    "label" => "Pas encore de compte ? Créez en un dès maintenant !",
-                    "route" => "creer_compte"
-                ]
-            ],
+            'links' => [],
             'inputs' => [
                 [
                     'name' => 'email',
@@ -123,21 +118,14 @@ class FormBuilder implements FormBuilderInterface {
                 [
                     'name' => 'start_date',
                     'label' => 'Date de début de l\'événement',
-                    'type' => 'date',
+                    'type' => 'datetime-local',
                     'placeholder' => '',
                     "required" => true,
                 ],
                 [
                     'name' => 'end_date',
                     'label' => 'Date de fin de l\'événement',
-                    'type' => 'date',
-                    'placeholder' => '',
-                    "required" => false,
-                ],
-                [
-                    'name' => 'time',
-                    'label' => 'Durée de l\'événement',
-                    'type' => 'time',
+                    'type' => 'datetime-local',
                     'placeholder' => '',
                     "required" => false,
                 ],

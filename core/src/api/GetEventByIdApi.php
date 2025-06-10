@@ -1,13 +1,13 @@
 <?php
 
-namespace App\webui\actions\API;
+namespace App\api;
 
+use App\api\abstract\AbstractApi;
 use App\application_core\application\useCases\interfaces\AppServiceInterface;
-use App\webui\actions\Abstract\AbstractAction;
 use Slim\Psr7\Request;
 use Slim\Psr7\Response;
 
-class GetEventsApiAction extends AbstractAction {
+class GetEventByIdApi extends AbstractApi {
     private AppServiceInterface $appService;
     public function __construct(AppServiceInterface $appService) {
         $this->appService = $appService;
@@ -15,7 +15,7 @@ class GetEventsApiAction extends AbstractAction {
     public function __invoke(Request $request, Response $response, array $args) {
         $data = [
             'type' => 'resource',
-            'events' => $this->appService->getEvents()
+            'event' => $this->appService->getEventById($args['id'])
         ];
 
         $response->getBody()->write(json_encode($data));
@@ -26,5 +26,4 @@ class GetEventsApiAction extends AbstractAction {
             ->withHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS')
             ->withStatus(200);
     }
-
 }

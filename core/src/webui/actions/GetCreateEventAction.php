@@ -4,7 +4,7 @@ namespace App\webui\actions;
 
 
 use App\application_core\application\useCases\interfaces\FormBuilderInterface;
-use App\webui\actions\Abstract\AbstractAction;
+use App\webui\actions\abstract\AbstractAction;
 use App\webui\providers\interfaces\CsrfTokenProviderInterface;
 use Slim\Psr7\Request;
 use Slim\Psr7\Response;

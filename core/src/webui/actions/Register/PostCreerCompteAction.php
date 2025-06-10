@@ -4,7 +4,7 @@ namespace App\webui\actions\Register;
 
 use App\application_core\application\exceptions\DatabaseException;
 use App\application_core\application\auth\AuthnService;
-use App\webui\actions\Abstract\AbstractAction;
+use App\webui\actions\abstract\AbstractAction;
 use MongoDB\Driver\Exception\AuthenticationException;
 use Slim\Psr7\Request;
 use Slim\Psr7\Response;

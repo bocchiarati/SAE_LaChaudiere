@@ -1,0 +1,70 @@
+{% extends "base/base.html.twig" %}
+
+{% block body %}
+    <label for="categoryFilter" class="block text-gray-700 font-bold mb-2">Filtrer par catégorie :</label>
+    <select id="categoryFilter" class="mb-6 px-3 py-2 border rounded">
+        <option value="all">Toutes les catégories</option>
+        {% for category in categories %}
+            <option value="{{ category.id }}">{{ category.label }}</option>
+        {% endfor %}
+    </select>
+
+    <div class="space-y-8" id="eventsContainer">
+        {% for start_date, dateEvents in eventsByDate %}
+            <div class="date-group">
+                <h2 class="text-2xl font-bold text-black mb-4 border-b pb-2">
+                    📅 {{ start_date }}
+                </h2>
+                <div class="grid grid-cols-1 gap-4">
+                    {% for event in dateEvents %}
+                        <div class="bg-white shadow rounded-xl p-5 border border-gray-200 event" data-category-id="{{ event.category.id }}">
+                            <h3 class="text-xl font-semibold text-red-600 mb-2">
+                                {{ event.title }}
+                            </h3>
+                            <p class="text-sm text-gray-600">
+                                🏷️ <strong>Catégorie :</strong> {{ event.category.label }}
+                            </p>
+                            <p class="text-sm text-gray-600">
+                                ⏰ <strong>Date de début :</strong> {{ event.start_date }}
+                            </p>
+                            {% if event.end_date %}
+                                <p class="text-sm text-gray-600">
+                                    ⏳ <strong>Date de fin :</strong> {{ event.end_date }}
+                                </p>
+                            {% endif %}
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const filter = document.getElementById("categoryFilter");
+            filter.addEventListener('change', function() {
+                const selectedCategory_id = this.value;
+                document.querySelectorAll(".date-group").forEach(dateGroup => {
+                    let isDisplay = false;
+                    dateGroup.querySelectorAll(".event").forEach(event => {
+                        isDisplay = false;
+                        const category_id = event.getAttribute("data-category-id");
+                        if((selectedCategory_id === "all") || (category_id === selectedCategory_id)) {
+                            isDisplay = true;
+                            event.style.display = 'block';
+                        } else {
+                            event.style.display = 'none';
+                        }
+                    })
+                    if(!isDisplay) {
+                        dateGroup.style.display = 'none';
+                    } else {
+                        dateGroup.style.display = 'block';
+                    }
+                });
+            });
+        });
+    </script>
+{% endblock %}

@@ -16,17 +16,17 @@ class SessionAuthnProvider implements AuthnProviderInterface {
     }
 
     public function getSignedInUser(): ?array {
-        if (isset($_SESSION["id"])) {
-            $id = $_SESSION["id"];
-            return User::where('id', '=', $id)->first()->toArray();
+        if (isset($_SESSION["email"])) {
+            $email = $_SESSION["email"];
+            return User::where('email', '=', $email)->first()->toArray();
         } else {
             return null;
         }
     }
 
-    public function signin($email,$mdp, $id) {
+    public function signin($email,$mdp) {
         if($this->authnService->verifyCredentials($email, $mdp)) {
-            $_SESSION["id"] = $id;
+            $_SESSION["email"] = $email;
         }
     }
 

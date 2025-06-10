@@ -11,4 +11,5 @@ interface AppServiceInterface {
     public function getUser(string $email): array;
     public function creerCategory(string $libelle, string $description): array;
     public function getEventsSortByDate(): array;
+    public function publishEvent(int $event_id): array;
 }

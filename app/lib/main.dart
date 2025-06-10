@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:todo_liste/providers/event_provider.dart';
 import 'package:todo_liste/screen/EventListScreen.dart';
 
 void main() {
@@ -10,13 +12,15 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'La Chaudière',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+    return ChangeNotifierProvider(
+      create: (context) => EventProvider()..fetchEvents(),
+      child: MaterialApp(
+        title: 'La Chaudière',
+        theme: ThemeData(
+          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        ),
+        home: const EventListScreen(),
       ),
-      home: EventListScreen(),
     );
   }
 }
-

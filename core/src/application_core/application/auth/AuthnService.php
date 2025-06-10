@@ -1,20 +1,21 @@
 <?php
 
-namespace App\application_core\application\useCases;
+namespace App\application_core\application\auth;
 
-use App\application_core\application\useCases\interfaces\AuthnServiceInterface;
+use App\application_core\application\auth\interfaces\AuthnServiceInterface;
 use App\application_core\domain\entities\User;
 use MongoDB\Driver\Exception\AuthenticationException;
 
 class AuthnService implements AuthnServiceInterface {
     public function register($email, $mdp) : array
     {
-        if(User::where('id','=', $email)->count() == 0) {
+        if(User::where('email','=', $email)->count() == 0) {
             $mdpHash = password_hash($mdp, PASSWORD_BCRYPT);
             $user = new User();
             $user->id = \Ramsey\Uuid\Uuid::uuid4()->toString();
-            $user->user_id = $email;
+            $user->email = $email;
             $user->password = $mdpHash;
+            $user->role = 1;
             $user->save();
             return $user->toArray();
         } else {
@@ -23,7 +24,7 @@ class AuthnService implements AuthnServiceInterface {
     }
 
     public function verifyCredentials($email, $mdp): bool {
-        $user = User::where('user_id','=', $email)->first();
+        $user = User::where('email','=', $email)->first();
         if($user == null) {
             throw new AuthenticationException("TEMPORAIRE A SUPPRIMER. Utilisateur inexistant.");
             //throw new AuthenticationException("Erreur lors de l'authentification.");

@@ -25,6 +25,10 @@ class PostCategoryPersoAction extends AbstractAction{
 
         $this->appService->creerCategory($libelle,$description);
 
-        return $twig->render($response, "home/index.html.twig");
+        $routeParser = RouteContext::fromRequest($request)->getRouteParser();
+        $url = $routeParser->urlFor('homepage');
+        return $response
+            ->withHeader('Location', $url)
+            ->withStatus(302);
     }
 }

@@ -6,6 +6,7 @@ use App\application_core\application\exceptions\DatabaseException;
 use App\application_core\application\useCases\interfaces\AppServiceInterface;
 use App\application_core\domain\entities\Category;
 use App\application_core\domain\entities\Event;
+use App\application_core\domain\entities\User;
 
 class AppService implements AppServiceInterface{
 
@@ -52,11 +53,25 @@ class AppService implements AppServiceInterface{
 
     public function getEventById($id): array {
         try {
-            return Event::with("images")->where("id", "=", $id)
+            return Event::with("images", "category")->where("id", "=", $id)
                 ->first()
                 ->toArray();
         } catch (\Throwable $e) {
             throw new DatabaseException("Erreur lors de la récupération des évenements d'une catégorie");
+        }
+    }
+
+    public function getEventsSortByDate(): array {
+        try {
+            return Event::with('category')
+                ->orderBy('start_date', 'asc')
+                ->get()
+                ->groupBy((function ($event) {
+                    return \Carbon\Carbon::parse($event->start_date)->format('Y-m-d');
+                }))
+                ->toArray();
+        } catch (\Throwable $e) {
+            throw new DatabaseException("Erreur lors de la récupération des évenements par date croissante");
         }
     }
 
@@ -70,11 +85,19 @@ class AppService implements AppServiceInterface{
 
             return $category->toArray();
         } catch(\Exception $e) {
-            throw new DatabaseException("Erreur lors de l'insertion de la Catgory " . $e->getMessage());
+            throw new DatabaseException("Erreur lors de l'insertion de la catégorie " . $e->getMessage());
         }
     }
 
-    public function createEvent(String $title, String $description, float $price, String $start_date, ?String $end_date, ?String $time, int $category_id, bool $is_published, String $user_id): array {
+    public function getUser(string $email): array{
+        try{
+            return User::where("email", "=", $email)->first()->toArray();
+        } catch(\Exception $e) {
+            throw new DatabaseException("Erreur lors du chargement d'un utilisateur " . $e->getMessage());
+        }
+    }
+
+    public function createEvent(String $title, String $description, float $price, String $start_date, ?String $end_date, int $category_id, bool $is_published, String $user_id): array {
         try {
             $event = new Event();
             $event->title = $title;

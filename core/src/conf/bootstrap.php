@@ -1,8 +1,10 @@
 <?php
 
 
+use App\application_core\application\useCases\AppService;
 use App\application_core\application\useCases\AuthnService;
 use App\application_core\application\useCases\FormBuilder;
+use App\application_core\application\useCases\interfaces\AppServiceInterface;
 use App\application_core\application\useCases\interfaces\AuthnServiceInterface;
 use App\application_core\application\useCases\interfaces\FormBuilderInterface;
 use App\infrastructure\Eloquent;
@@ -35,6 +37,7 @@ $container->set(FormBuilderInterface::class, \DI\autowire(FormBuilder::class));
 $container->set(CsrfTokenProviderInterface::class, \DI\autowire(CsrfTokenProvider::class));
 $container->set(AuthnProviderInterface::class, \DI\autowire(SessionAuthnProvider::class));
 $container->set(AuthnServiceInterface::class, \DI\autowire(AuthnService::class));
+$container->set(AppServiceInterface::class, \DI\autowire(AppService::class));
 
 AppFactory::setContainer($container);
 $app = AppFactory::create();

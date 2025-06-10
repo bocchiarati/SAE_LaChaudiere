@@ -10,9 +10,12 @@
         {% block stylesheets %}{% endblock %}
     </head>
     <body>
-        <main>
-            {% block body %}{% endblock %}
-        </main>
+        <div class="flex flex-grow">
+            {% include "base/nav.html.twig" %}
+            <main class="w-full p-6">
+                {% block body %}{% endblock %}
+            </main>
+        </div>
         {% block javascripts %}{% endblock %}
     </body>
 </html>

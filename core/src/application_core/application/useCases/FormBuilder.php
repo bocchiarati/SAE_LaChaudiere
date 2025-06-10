@@ -2,9 +2,19 @@
 
 namespace App\application_core\application\useCases;
 
+use App\application_core\application\useCases\interfaces\AppServiceInterface;
 use App\application_core\application\useCases\interfaces\FormBuilderInterface;
+use App\webui\providers\interfaces\CsrfTokenProviderInterface;
 
 class FormBuilder implements FormBuilderInterface {
+    private CsrfTokenProviderInterface $csrfTokenProvider;
+    private AppServiceInterface $appService;
+
+    public function __construct(CsrfTokenProviderInterface $csrfTokenProvider, AppServiceInterface $appService) {
+        $this->csrfTokenProvider = $csrfTokenProvider;
+        $this->appService = $appService;
+    }
+
     public function buildSignInForm(): array {
         return [
             'actionRoute' => 'post_signin',
@@ -31,7 +41,8 @@ class FormBuilder implements FormBuilderInterface {
                     "required" => true,
                 ]
             ],
-            'selects' => []
+            'selects' => [],
+            'csrf_token' => $this->csrfTokenProvider->generate()
         ];
     }
 
@@ -72,8 +83,15 @@ class FormBuilder implements FormBuilderInterface {
         ];
     }
 
-    public function buildCreateEventForm(): array
-    {
+    public function buildCreateEventForm(): array {
+        $categories = $this->appService->getCategories();
+        $options = [];
+        foreach($categories as $category){
+            $options[] = [
+                "label" => $category['label'],
+                "value" => $category['id']
+            ];
+        }
         return [
             'actionRoute' => 'post_create_event',
             'submit_button' => "Créer l'événement",
@@ -88,7 +106,7 @@ class FormBuilder implements FormBuilderInterface {
                 ],
                 [
                     'name' => 'description',
-                    'label' => 'description',
+                    'label' => 'Description',
                     'type' => 'text',
                     'placeholder' => 'Description de l\'événement',
                     "required" => false,
@@ -99,6 +117,8 @@ class FormBuilder implements FormBuilderInterface {
                     'type' => 'number',
                     'placeholder' => 'Prix de l\'événement',
                     "required" => false,
+                    'step' => 0.01,
+                    'min' => 0
                 ],
                 [
                     'name' => 'start_date',
@@ -122,19 +142,44 @@ class FormBuilder implements FormBuilderInterface {
                     "required" => false,
                 ],
                 [
-                    'name' => 'category_id',
-                    'label' => 'Ici y aura les choix de catégorie',
-                    'type' => 'text',
-                    'placeholder' => '',
-                    "required" => false,
-                ],
-                [
                     'name' => 'is_published',
-                    'label' => 'L\'événement doit-il être publié ?',
+                    'label' => 'Publier l\'événement une fois créé',
                     'type' => 'checkbox',
                     'placeholder' => '',
                     "required" => false,
                 ],
+            ],
+            'selects' => [
+                [
+                    'name' => 'selector',
+                    'label' => 'Séléctionnez une catégorie pour l\'événement',
+                    'options' => $options
+                ]
+            ],
+            'csrf_token' => $this->csrfTokenProvider->generate()
+        ];
+    }
+
+    public function buildCategoriesForm(): array {
+        return [
+            'actionRoute' => 'post_create_category_perso',
+            'submit_button' => "Ajouter la categorie",
+            'links' => [],
+            'inputs' => [
+                [
+                    'name' => 'libelle',
+                    'label' => 'Nom de la catégorie',
+                    'type' => 'text',
+                    'placeholder' => 'Exposition',
+                    'required' => true
+                ],
+                [
+                    'name' => 'description',
+                    'label' => 'Description de la catégorie',
+                    'type' => 'text',
+                    'placeholder' => 'Je suis une description de la categorie',
+                    "required" => true,
+                ]
             ],
             'selects' => []
         ];

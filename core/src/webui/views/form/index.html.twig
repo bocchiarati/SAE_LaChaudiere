@@ -5,28 +5,43 @@
         <form action="{{ url_for(form.actionRoute) }}" method="post" class="bg-white shadow-md rounded-lg p-6 w-full">
             {% for input in form.inputs %}
                 <div class="mb-4">
-                    <label class="block text-gray-700 text-sm font-bold mb-2" for="{{ input.name }}">
-                        {{ input.label }}
-                    </label>
-                    {% if input.type == "textarea" %}
-                        <textarea
+                    {% if input.type == "checkbox" %}
+                        <label class="inline-flex items-center">
+                            <input
+                                type="checkbox"
+                                id="{{ input.name }}"
+                                name="{{ input.name }}"
+                                class="form-checkbox h-5 w-5 text-blue-600"
+                                {% if input.value|default(false) %}checked{% endif %}
+                            >
+                            <span class="ml-2 text-gray-700 text-sm font-bold">{{ input.label }}</span>
+                        </label>
+                    {% else %}
+                        <label class="block text-gray-700 text-sm font-bold mb-2" for="{{ input.name }}">
+                            {{ input.label }}
+                        </label>
+                        {% if input.type == "textarea" %}
+                            <textarea
                                 class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                 id="{{ input.name }}"
                                 name="{{ input.name }}"
                                 {% if input.placeholder %}placeholder="{{ input.placeholder }}"{% endif %}
                                 rows="4"
-                        >{{ input.value|default('') }}</textarea>
-                    {% else %}
-                        <input
+                            >{{ input.value|default('') }}</textarea>
+                        {% else %}
+                            <input
                                 class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                 id="{{ input.name }}"
                                 name="{{ input.name }}"
                                 type="{{ input.type }}"
                                 value="{{ input.value|default('') }}"
                                 {% if input.placeholder %}placeholder="{{ input.placeholder }}"{% endif %}
-                        />
+                                {% if input.step is defined %}step="{{ input.step }}"{% endif %}
+                                {% if input.min is defined %}min="{{ input.min }}"{% endif %}
+                                {% if input.required == true %} required{% endif %}
+                            />
+                        {% endif %}
                     {% endif %}
-
                 </div>
             {% endfor %}
 
@@ -41,8 +56,7 @@
                 </select>
             {% endfor %}
 
-
-            <div class="mb-6">
+            <div class="mb-6 mt-3">
                 <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
                     {{ form.submit_button }}
                 </button>

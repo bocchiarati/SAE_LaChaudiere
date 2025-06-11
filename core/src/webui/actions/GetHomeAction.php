@@ -18,10 +18,6 @@ class GetHomeAction extends AbstractAction {
     public function __construct(private AuthnProviderInterface $provider){
     }
     public function __invoke(Request $request, Response $response, array $args) {
-        $unvalide_user_response = $this->provider->verifyUser($response, $request);
-        if($unvalide_user_response !== null){
-            return $unvalide_user_response;
-        }
         $twig = Twig::fromRequest($request);
         return $twig->render($response,'home/index.html.twig');
     }

@@ -1,5 +1,6 @@
 <?php
 
+use App\api\GetApiHelp;
 use App\api\GetCategoriesApi;
 use App\api\GetCategoryEventsApi;
 use App\api\GetEventByIdApi;
@@ -45,6 +46,8 @@ return function ($app) {
         ->setName('post_creer_compte');
 
     //-----------API-----------//
+    $app->get("/api", GetApiHelp::class)
+        ->setName('api_help');
     $app->get("/api/categories", GetCategoriesApi::class)
         ->setName('api_categories');
     $app->get("/api/events", GetEventsApi::class)

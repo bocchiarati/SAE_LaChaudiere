@@ -30,16 +30,12 @@ $app = AppFactory::create();
 
 
 $app->add(function ($request, $handler) use ($app, $twig) {
-    $container = $app->getContainer();
-
         /** @var AuthnProviderInterface $authnProvider */
-    $authnProvider = $container->get(AuthnProviderInterface::class);
-
-    // Récupérer l'utilisateur à partir de l'email stocké en session
-    $user = $authnProvider->getSignedInUser();
+    $authnProvider = $app->getContainer()->get(AuthnProviderInterface::class);
 
     // Injecter dans Twig
-    $twig->getEnvironment()->addGlobal('user', $user);
+    $twig->getEnvironment()->addGlobal('user', $authnProvider->getSignedInUser());
+    $twig->getEnvironment()->addGlobal('verify_user', $authnProvider->verifyUser());
 
     return $handler->handle($request);
 });

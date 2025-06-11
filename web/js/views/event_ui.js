@@ -1,8 +1,8 @@
 import {getRessource} from "../lib/api_loader.js";
 import {go_back} from "../controller/retour_action.js";
+import {entrypoint} from "../conf.js";
 
 export async function load_event(url) {
-    console.log(url);
     // Récupération du template Handlebars depuis le DOM
     const source = document.getElementById("eventDetailTemplate").innerHTML;
 
@@ -10,9 +10,12 @@ export async function load_event(url) {
     const template = Handlebars.compile(source);
 
     // Données de test
-    const eventData = (await getRessource(url)).event;
-
+    const templateData = {
+        event: (await getRessource(url)).event,
+        entrypoint: entrypoint
+    };
+    console.log(templateData);
     // Insertion du HTML généré dans l'élément avec l'ID "content"
-    document.getElementById("event_detail_container").innerHTML = template(eventData);
+    document.getElementById("event_detail_container").innerHTML = template(templateData);
     go_back()
 }

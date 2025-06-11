@@ -5,6 +5,7 @@ namespace App\webui\actions;
 
 use App\application_core\application\useCases\interfaces\AppServiceInterface;
 use App\webui\actions\Abstract\AbstractAction;
+use Psr\Http\Message\ResponseInterface;
 use Slim\Psr7\Request;
 use Slim\Psr7\Response;
 use Slim\Routing\RouteContext;
@@ -20,8 +21,8 @@ class PostCreateEventAction extends AbstractAction {
     {
         $this->appService = $appService;
     }
-    
-    public function __invoke(Request $request, Response $response, array $args): \Psr\Http\Message\ResponseInterface
+
+    public function __invoke(Request $request, Response $response, array $args): ResponseInterface
     {
         $data = $request->getParsedBody();
 
@@ -43,7 +44,7 @@ class PostCreateEventAction extends AbstractAction {
 
         $routeParser = RouteContext::fromRequest($request)->getRouteParser();
         $url = $routeParser->urlFor('homepage');
-        
+
         return $response
             ->withHeader('Location', $url)
             ->withStatus(302);

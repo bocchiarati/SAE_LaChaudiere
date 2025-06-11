@@ -3,7 +3,7 @@
 namespace App\webui\actions\CreerCategorie;
 
 use App\application_core\application\useCases\interfaces\AppServiceInterface;
-use App\webui\actions\Abstract\AbstractAction;
+use App\webui\actions\abstract\AbstractAction;
 use Slim\Psr7\Request;
 use Slim\Psr7\Response;
 use Slim\Routing\RouteContext;
@@ -25,6 +25,10 @@ class PostCategoryPersoAction extends AbstractAction{
 
         $this->appService->creerCategory($libelle,$description);
 
-        return $twig->render($response, "home/index.html.twig");
+        $routeParser = RouteContext::fromRequest($request)->getRouteParser();
+        $url = $routeParser->urlFor('homepage');
+        return $response
+            ->withHeader('Location', $url)
+            ->withStatus(302);
     }
 }

@@ -1,17 +1,7 @@
 <?php
 
-
-use App\application_core\application\useCases\AppService;
-use App\application_core\application\useCases\AuthnService;
-use App\application_core\application\useCases\FormBuilder;
-use App\application_core\application\useCases\interfaces\AppServiceInterface;
-use App\application_core\application\useCases\interfaces\AuthnServiceInterface;
-use App\application_core\application\useCases\interfaces\FormBuilderInterface;
 use App\infrastructure\Eloquent;
-use App\webui\providers\CsrfTokenProvider;
 use App\webui\providers\interfaces\AuthnProviderInterface;
-use App\webui\providers\interfaces\CsrfTokenProviderInterface;
-use App\webui\providers\SessionAuthnProvider;
 use DI\Container;
 use Slim\Factory\AppFactory;
 use Slim\Views\Twig;
@@ -32,28 +22,35 @@ try {
 }
 
 $container = new Container();
-//$container->set(ExempleServiceInterface::class, \DI\autowire(ExempleService::class));
-$container->set(FormBuilderInterface::class, \DI\autowire(FormBuilder::class));
-$container->set(CsrfTokenProviderInterface::class, \DI\autowire(CsrfTokenProvider::class));
-$container->set(AuthnProviderInterface::class, \DI\autowire(SessionAuthnProvider::class));
-$container->set(AuthnServiceInterface::class, \DI\autowire(AuthnService::class));
-$container->set(AppServiceInterface::class, \DI\autowire(AppService::class));
+$app = (require_once __DIR__ . '/dependencies.php')($container);
+
 
 AppFactory::setContainer($container);
 $app = AppFactory::create();
 
 
 $app->add(function ($request, $handler) use ($app, $twig) {
-    $container = $app->getContainer();
-
         /** @var AuthnProviderInterface $authnProvider */
-    $authnProvider = $container->get(AuthnProviderInterface::class);
-
-    // Récupérer l'utilisateur à partir de l'email stocké en session
-    $user = $authnProvider->getSignedInUser();
+    $authnProvider = $app->getContainer()->get(AuthnProviderInterface::class);
 
     // Injecter dans Twig
-    $twig->getEnvironment()->addGlobal('user', $user);
+    $twig->getEnvironment()->addGlobal('user', $authnProvider->getSignedInUser());
+    $twig->getEnvironment()->addGlobal('verify_user', $authnProvider->verifyUser());
+
+    return $handler->handle($request);
+});
+
+$app->add(function ($request, $handler) use ($app, $twig) {
+    $container = $app->getContainer();
+
+    /** @var AuthnProviderInterface $authnProvider */
+    $authnProvider = $container->get(AuthnProviderInterface::class);
+
+    // Affecte à la variable isSudo true or false si l'utilisateur est un super admin
+    $isSudo = $authnProvider->isSudo();
+
+    // Ajoute à Twig la variable si l'utilisateur est super admin
+    $twig->getEnvironment()->addGlobal('isSudo', $isSudo);
 
     return $handler->handle($request);
 });

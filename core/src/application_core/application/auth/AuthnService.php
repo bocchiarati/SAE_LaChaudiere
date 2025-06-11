@@ -15,7 +15,7 @@ class AuthnService implements AuthnServiceInterface {
             $user->id = \Ramsey\Uuid\Uuid::uuid4()->toString();
             $user->email = $email;
             $user->password = $mdpHash;
-            $user->role = 1;
+            $user->role = 100;
             $user->save();
             return $user->toArray();
         } else {

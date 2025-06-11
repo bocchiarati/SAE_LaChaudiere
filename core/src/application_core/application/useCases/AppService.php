@@ -78,7 +78,7 @@ class AppService implements AppServiceInterface{
     public function creerCategory(string $libelle, string $description): array{
         try{
             $category = new Category();
-            $category->label = '##' . $libelle;
+            $category->label = $libelle;
             $category->description = '**' . $description . '**';
 
             $category->save();
@@ -119,4 +119,15 @@ class AppService implements AppServiceInterface{
     }
 
 
+    public function publishEvent(int $event_id): array
+    {
+        try{
+            $event = Event::find($event_id);
+            $event->is_published = !$event->is_published;
+            $event->save();
+            return $event->toArray();
+        } catch(\Exception $e) {
+            throw new DatabaseException("Erreur lors du changement de statut de publication de l'événement : " . $e->getMessage());
+        }
+    }
 }

@@ -22,16 +22,27 @@
                                 {{ event.title }}
                             </h3>
                             <p class="text-sm text-gray-600">
-                                🏷️ <strong>Catégorie :</strong> {{ event.category.label }}
+                                <span class="block">🏷️ <strong>Catégorie :</strong> {{ event.category.label }}</span>
+                                <span class="block">⏰ <strong>Date de début :</strong> {{ event.start_date }}</span>
+                                <span class="block">⏳ <strong>Date de fin :</strong> {{ event.end_date }}</span>
+                                {% if event.is_published %}
+                                    <span class="block">✅ <strong>Statut :</strong> Publié</span>
+                                {% else %}
+                                    <span class="block">❌ <strong>Statut :</strong> Non publié</span>
+                                {% endif %}
+                                <form action="{{ url_for('post_publish_event') }}" method="post" class="mt-4">
+                                    <input type="hidden" name="event_id" value="{{ event.id }}"/>
+                                    {% if event.is_published %}
+                                        <button type="submit" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
+                                            Retirer la publication
+                                        </button>
+                                    {% else %}
+                                        <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                                            Publier l'événement
+                                        </button>
+                                    {% endif %}
+                                </form>
                             </p>
-                            <p class="text-sm text-gray-600">
-                                ⏰ <strong>Date de début :</strong> {{ event.start_date }}
-                            </p>
-                            {% if event.end_date %}
-                                <p class="text-sm text-gray-600">
-                                    ⏳ <strong>Date de fin :</strong> {{ event.end_date }}
-                                </p>
-                            {% endif %}
                         </div>
                     {% endfor %}
                 </div>

@@ -14,6 +14,7 @@ use App\webui\actions\GetEventsAction;
 use App\webui\actions\GetHomeAction;
 use App\webui\actions\GetUnvalideUserAction;
 use App\webui\actions\PostCreateEventAction;
+use App\webui\actions\PostPublishEventAction;
 use App\webui\actions\Register\GetCreerCompteAction;
 use App\webui\actions\Register\PostCreerCompteAction;
 use App\webui\actions\auth\GetSignOutAction;
@@ -47,6 +48,8 @@ return function ($app) {
         ->setName('post_signin');
     $app->post('/creer-compte', PostCreerCompteAction::class)
         ->setName('post_creer_compte');
+    $app->post('/events', PostPublishEventAction::class)
+        ->setName('post_publish_event');
 
     //-----------API-----------//
     $app->get("/api", GetApiHelp::class)

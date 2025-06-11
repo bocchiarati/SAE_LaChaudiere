@@ -31,7 +31,7 @@ INSERT INTO Category (id, label, description) VALUES
     (10, 'Jeux', 'Événements autour du jeu : jeux de société, jeux vidéo, escape game');
 
 INSERT INTO Event (
-    id, title, description, price, start_date, end_date, time, category_id, is_published, user_id, image_url
+    id, title, description, price, start_date, end_date, time, category_id, is_published, user_id
 ) VALUES
       (1, 'Jazz à Vienne', 'Festival emblématique de jazz en plein air dans le théâtre antique de Vienne.', 35.00, '2025-07-01 20:30:00', '2025-07-01 23:00:00', '20:30:00', 1, TRUE, '68bc3360-1831-450e-bfd5-dfc8b5367ae1'),
       (2, 'Paris Photo 2025', 'Grande exposition internationale de photographie au Grand Palais Éphémère.', 22.00, '2025-11-06 10:00:00', '2025-11-09 19:00:00', '10:00:00', 4, TRUE, '68bc3360-1831-450e-bfd5-dfc8b5367ae1'),

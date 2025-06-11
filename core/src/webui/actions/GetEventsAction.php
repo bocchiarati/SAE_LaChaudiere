@@ -3,6 +3,7 @@
 namespace App\webui\actions;
 
 
+use App\application_core\application\exceptions\DatabaseException;
 use App\application_core\application\useCases\interfaces\AppServiceInterface;
 
 use App\application_core\application\useCases\interfaces\FormBuilderInterface;
@@ -28,8 +29,12 @@ class GetEventsAction extends AbstractAction
     public function __invoke(Request $request, Response $response, array $args)
     {
         $twig = Twig::fromRequest($request);
-        $events = $this->appService->getEventsSortByDate();
-        $categories = $this->appService->getCategories();
+        try{
+            $events = $this->appService->getEventsSortByDate();
+            $categories = $this->appService->getCategories();
+        } catch(DatabaseException $e) {
+            return $twig->render($response, 'error/index.html.twig', ["code" => 500, "message" => "Erreur interne du serveur, " . $e->getMessage() . " Veuillez essayer plus tard."]);
+        }
 
         return $twig->render($response, 'event/index.html.twig', [
             "eventsByDate" => $events,

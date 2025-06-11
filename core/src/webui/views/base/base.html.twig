@@ -10,6 +10,13 @@
         {% block stylesheets %}{% endblock %}
     </head>
     <body>
+        {% if verify_user != null %}
+            <script>
+                if (window.location.pathname !== "{{ url_for(verify_user) }}") {
+                    window.location.href = "{{ url_for(verify_user) }}"
+                }
+            </script>
+        {% endif %}
         <div class="flex flex-grow">
             {% include "base/nav.html.twig" %}
             <main class="w-full p-6">
@@ -17,5 +24,6 @@
             </main>
         </div>
         {% block javascripts %}{% endblock %}
+
     </body>
 </html>

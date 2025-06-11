@@ -5,9 +5,7 @@ namespace App\webui\providers;
 use App\application_core\application\auth\interfaces\AuthnServiceInterface;
 use App\application_core\domain\entities\User;
 use App\webui\providers\interfaces\AuthnProviderInterface;
-use Slim\Psr7\Response;
-use Slim\Psr7\Request;
-use Slim\Routing\RouteContext;
+
 
 
 class SessionAuthnProvider implements AuthnProviderInterface {
@@ -35,19 +33,11 @@ class SessionAuthnProvider implements AuthnProviderInterface {
         session_unset();
     }
 
-    public function verifyUser(Response $response, Request $request) : ?Response {
+    public function verifyUser() : ?string {
         if(!$this->isConnected()) {
-            $routeParser = RouteContext::fromRequest($request)->getRouteParser();
-            $url = $routeParser->urlFor('signin');
-            return $response
-                ->withHeader('Location', $url)
-                ->withStatus(302);
+            return "signin";
         } else if(!$this->isAdmin()) {
-            $routeParser = RouteContext::fromRequest($request)->getRouteParser();
-            $url = $routeParser->urlFor('unvalide_user');
-            return $response
-                ->withHeader('Location', $url)
-                ->withStatus(302);
+            return "unvalide_user";
         } else {
             return null;
         }

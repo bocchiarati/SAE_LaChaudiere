@@ -9,6 +9,6 @@ interface AuthnProviderInterface {
     public function getSignedInUser(): ?array;
     public function signin($email, $mdp);
     public function signout() : void;
-    public function verifyUser(Response $response, Request $request) : ?Response;
+    public function verifyUser() : ?string;
     public function isSudo() : bool;
     }

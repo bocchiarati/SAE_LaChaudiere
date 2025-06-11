@@ -15,7 +15,7 @@ class GetCategoryEventsApi extends AbstractApi {
     }
     public function __invoke(Request $request, Response $response, array $args) {
         try {
-            $events = $this->appService->getEventsByCategory($args["category_id"]);
+            $events = $this->appService->getPublishedEventsByCategory($args["category_id"]);
         } catch(DatabaseException $e) {
             return DatabaseException::handle($response, $e);
         }

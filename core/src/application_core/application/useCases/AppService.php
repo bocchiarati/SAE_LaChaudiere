@@ -18,9 +18,10 @@ class AppService implements AppServiceInterface{
         }
     }
 
-    public function getEvents(): array{
+    public function getPublishedEvents(): array{
         try {
-            return Event::select([
+            return Event::where("is_published", "=", "1")
+                ->select([
                 'id',
                 'title',
                 'description',
@@ -34,9 +35,10 @@ class AppService implements AppServiceInterface{
         }
     }
 
-    public function getEventsByCategory($category_id): array{
+    public function getPublishedEventsByCategory($category_id): array{
         try {
             return Event::where("category_id", "=", $category_id)
+                ->where("is_published", "=", "1")
                 ->select([
                 'id',
                 'title',

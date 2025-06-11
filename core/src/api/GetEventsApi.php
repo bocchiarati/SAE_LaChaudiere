@@ -15,7 +15,7 @@ class GetEventsApi extends AbstractApi {
     }
     public function __invoke(Request $request, Response $response, array $args) {
         try {
-            $events = $this->appService->getEvents();
+            $events = $this->appService->getPublishedEvents();
         } catch(DatabaseException $e) {
             return DatabaseException::handle($response, $e);
         }

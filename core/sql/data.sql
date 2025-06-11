@@ -42,7 +42,7 @@ INSERT INTO Event (
       (7, 'Boucles de l’Aulne', 'Course cycliste UCI Europe Tour (1.1)', 10.00, '2025-05-08 09:00:00', '2025-05-08 17:00:00', '09:00:00', 6, TRUE, '68bc3360-1831-450e-bfd5-dfc8b5367ae1'),
       (8, 'Festival du Court Métrage Clermont-Ferrand', 'Festival international de courts métrages.', 7.50, '2025-02-07 10:00:00', '2025-02-15 22:00:00', '10:00:00', 8, TRUE, '68bc3360-1831-450e-bfd5-dfc8b5367ae1'),
       (9, 'Annecy Festival 2025', 'Festival international du film d’animation.', 12.00, '2025-06-09 09:00:00', '2025-06-14 22:00:00', '09:00:00', 8, TRUE, '68bc3360-1831-450e-bfd5-dfc8b5367ae1'),
-      (10, 'Festival International de la Musique de Nice', 'Exposition « Action! – Sport au cinéma » au Musée National du Sport.', 8.00, '2025-04-11 10:00:00', '2025-11-16 18:00:00', '10:00:00', 4, TRUE, '68bc3360-1831-450e-bfd5-dfc8b5367ae1'),
+      (10, 'Festival International de la Musique de Nice', 'Exposition « Action! – Sport au cinéma » au Musée National du Sport.', 8.00, '2025-04-11 10:00:00', '2025-04-16 18:00:00', '10:00:00', 4, TRUE, '68bc3360-1831-450e-bfd5-dfc8b5367ae1'),
       (11, 'Quatre Jours de Dunkerque', 'Course cycliste UCI ProSeries, 5 étapes.', 15.00, '2025-05-14 08:00:00', '2025-05-18 18:00:00', '08:00:00', 6, TRUE, '68bc3360-1831-450e-bfd5-dfc8b5367ae1'),
       (12, 'Salon du Livre de Paris 2025', 'Festival du livre et littérature au Grand Palais.', 14.00, '2025-04-11 10:00:00', '2025-04-13 19:00:00', '10:00:00', 4, TRUE, '68bc3360-1831-450e-bfd5-dfc8b5367ae1'),
       (13, 'Fête de la Musique', 'Concerts gratuits dans toute la France.', 0.00, '2025-06-21 18:00:00', '2025-06-21 23:59:00', '18:00:00', 1, TRUE, '68bc3360-1831-450e-bfd5-dfc8b5367ae1'),

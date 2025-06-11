@@ -17,17 +17,14 @@ use Slim\Views\Twig;
 class GetCreateEventAction extends AbstractAction
 {
     private FormBuilderInterface $formBuilder;
-    private CsrfTokenProviderInterface $csrfProvider;
     public function __construct(FormBuilderInterface $formBuilder, CsrfTokenProviderInterface $csrfProvider) {
         $this->formBuilder = $formBuilder;
-        $this->csrfProvider = $csrfProvider;
     }
     public function __invoke(Request $request, Response $response, array $args)
     {
         $twig = Twig::fromRequest($request);
         return $twig->render($response, 'form/index.html.twig', [
             "form" => $this->formBuilder->buildCreateEventForm(),
-            "token" => $this->csrfProvider->generate()
         ]);
     }
 }

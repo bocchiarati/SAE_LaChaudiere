@@ -3,6 +3,8 @@
 namespace App\api;
 
 use App\api\abstract\AbstractApi;
+use App\application_core\application\exceptions\DatabaseException;
+use App\application_core\application\exceptions\DatabaseExceptionMiddleware;
 use App\application_core\application\useCases\interfaces\AppServiceInterface;
 use Slim\Psr7\Request;
 use Slim\Psr7\Response;
@@ -14,7 +16,14 @@ class GetApiHelp extends AbstractApi {
         $this->appService = $appService;
     }
     public function __invoke(Request $request, Response $response, array $args) {
-        $categories = $this->appService->getCategories();
+        try {
+            $categories = $this->appService->getCategories();
+        } catch(DatabaseException $e) {
+            return DatabaseException::handle($response, $e);
+        }
+
+        //--------------------------------------------------------------------------------------------------------------
+
         foreach($categories as &$category) {
             $category["events"]["url"] =  '/api/category/' . $category["id"] . "/events";
         }
@@ -33,6 +42,10 @@ class GetApiHelp extends AbstractApi {
             ->withHeader('Access-Control-Allow-Headers', 'Content-Type, Accept, Origin, Authorization')
             ->withHeader('Access-Control-Allow-Methods', 'GET')
             ->withStatus(200);
+    }
+
+    private function DatabaseExceptionMiddleware(Response $response, \Exception|DatabaseException $e)
+    {
     }
 
 }

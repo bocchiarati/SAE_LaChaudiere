@@ -1,17 +1,7 @@
 <?php
 
-
-use App\application_core\application\auth\AuthnService;
-use App\application_core\application\auth\interfaces\AuthnServiceInterface;
-use App\application_core\application\useCases\AppService;
-use App\application_core\application\useCases\FormBuilder;
-use App\application_core\application\useCases\interfaces\AppServiceInterface;
-use App\application_core\application\useCases\interfaces\FormBuilderInterface;
 use App\infrastructure\Eloquent;
-use App\webui\providers\CsrfTokenProvider;
 use App\webui\providers\interfaces\AuthnProviderInterface;
-use App\webui\providers\interfaces\CsrfTokenProviderInterface;
-use App\webui\providers\SessionAuthnProvider;
 use DI\Container;
 use Slim\Factory\AppFactory;
 use Slim\Views\Twig;
@@ -32,12 +22,8 @@ try {
 }
 
 $container = new Container();
-//$container->set(ExempleServiceInterface::class, \DI\autowire(ExempleService::class));
-$container->set(FormBuilderInterface::class, \DI\autowire(FormBuilder::class));
-$container->set(CsrfTokenProviderInterface::class, \DI\autowire(CsrfTokenProvider::class));
-$container->set(AuthnProviderInterface::class, \DI\autowire(SessionAuthnProvider::class));
-$container->set(AuthnServiceInterface::class, \DI\autowire(AuthnService::class));
-$container->set(AppServiceInterface::class, \DI\autowire(AppService::class));
+$app = (require_once __DIR__ . '/dependencies.php')($container);
+
 
 AppFactory::setContainer($container);
 $app = AppFactory::create();

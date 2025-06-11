@@ -74,7 +74,8 @@ class FormBuilder implements FormBuilderInterface {
                     "required" => true,
                 ]
             ],
-            'selects' => []
+            'selects' => [],
+            'csrf_token' => $this->csrfTokenProvider->generate()
         ];
     }
 
@@ -169,7 +170,8 @@ class FormBuilder implements FormBuilderInterface {
                     "required" => true,
                 ]
             ],
-            'selects' => []
+            'selects' => [],
+            'csrf_token' => $this->csrfTokenProvider->generate()
         ];
     }
 }

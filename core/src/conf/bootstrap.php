@@ -40,6 +40,21 @@ $app->add(function ($request, $handler) use ($app, $twig) {
     return $handler->handle($request);
 });
 
+$app->add(function ($request, $handler) use ($app, $twig) {
+    $container = $app->getContainer();
+
+    /** @var AuthnProviderInterface $authnProvider */
+    $authnProvider = $container->get(AuthnProviderInterface::class);
+
+    // Affecte à la variable isSudo true or false si l'utilisateur est un super admin
+    $isSudo = $authnProvider->isSudo();
+
+    // Ajoute à Twig la variable si l'utilisateur est super admin
+    $twig->getEnvironment()->addGlobal('isSudo', $isSudo);
+
+    return $handler->handle($request);
+});
+
 
 $app->add(TwigMiddleware::create($app, $twig));
 $app = (require_once __DIR__ . '/routes.php')($app);

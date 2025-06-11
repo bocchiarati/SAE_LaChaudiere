@@ -14,7 +14,7 @@ class AppService implements AppServiceInterface{
         try{
             return Category::all()->toArray();
         } catch(\Throwable $e){
-            throw new DatabaseException("Erreur lors de la récupération de toutes les Categories.");
+            throw new DatabaseException("Erreur lors de la récupération de toutes les catégories.");
         }
     }
 
@@ -67,7 +67,7 @@ class AppService implements AppServiceInterface{
                 ->orderBy('start_date', 'asc')
                 ->get()
                 ->groupBy((function ($event) {
-                    return \Carbon\Carbon::parse($event->start_date)->format('Y-m-d');
+                    return \Carbon\Carbon::parse($event->start_date)->format('d-m-Y');
                 }))
                 ->toArray();
         } catch (\Throwable $e) {

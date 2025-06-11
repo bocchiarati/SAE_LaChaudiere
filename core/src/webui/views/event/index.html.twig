@@ -13,7 +13,7 @@
         {% for start_date, dateEvents in eventsByDate %}
             <div class="date-group">
                 <h2 class="text-2xl font-bold text-black mb-4 border-b pb-2">
-                    📅 {{ start_date }}
+                    📅 {{ start_date|date("d/m/Y") }}
                 </h2>
                 <div class="grid grid-cols-1 gap-4">
                     {% for event in dateEvents %}
@@ -23,8 +23,10 @@
                             </h3>
                             <p class="text-sm text-gray-600">
                                 <span class="block">🏷️ <strong>Catégorie :</strong> {{ event.category.label }}</span>
-                                <span class="block">⏰ <strong>Date de début :</strong> {{ event.start_date }}</span>
-                                <span class="block">⏳ <strong>Date de fin :</strong> {{ event.end_date }}</span>
+                                <span class="block">⏰ <strong>Date de début :</strong> {{ event.start_date|date("d/m/Y H:i") }}</span>
+                                {% if event.end_date %}
+                                    <span class="block">⏳ <strong>Date de fin :</strong> {{ event.end_date|date("d/m/Y H:i") }}</span>
+                                {% endif %}
                                 {% if event.is_published %}
                                     <span class="block">✅ <strong>Statut :</strong> Publié</span>
                                 {% else %}

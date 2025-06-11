@@ -53,10 +53,21 @@ class SessionAuthnProvider implements AuthnProviderInterface {
         }
     }
 
+    public function isSudo() : bool {
+        if($this->isConnected()) {
+            $user = $this->getSignedInUser();
+            if($user["role"] == 1000) {
+                return true;
+            }
+            return false;
+        }
+        return false;
+    }
+
     private function isAdmin() : bool {
         if($this->isConnected()) {
             $user = $this->getSignedInUser();
-            if($user["role"] == 100) {
+            if($user["role"] == 100 || $user["role"] == 1000) {
                 return true;
             }
             return false;

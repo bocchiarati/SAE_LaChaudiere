@@ -1,5 +1,6 @@
 <?php
 
+use App\api\GetApiHelp;
 use App\api\GetCategoriesApi;
 use App\api\GetCategoryEventsApi;
 use App\api\GetEventByIdApi;
@@ -11,7 +12,9 @@ use App\webui\actions\CreerCategorie\PostCategoryPersoAction;
 use App\webui\actions\GetCreateEventAction;
 use App\webui\actions\GetEventsAction;
 use App\webui\actions\GetHomeAction;
+use App\webui\actions\GetUnvalideUserAction;
 use App\webui\actions\PostCreateEventAction;
+use App\webui\actions\PostPublishEventAction;
 use App\webui\actions\Register\GetCreerCompteAction;
 use App\webui\actions\Register\PostCreerCompteAction;
 use App\webui\actions\auth\GetSignOutAction;
@@ -33,6 +36,8 @@ return function ($app) {
         ->setName('creer_compte');
     $app->get('/signout', GetSignOutAction::class)
         ->setName('signout');
+    $app->get('/unvalide_user', GetUnvalideUserAction::class)
+        ->setName('unvalide_user');
 
     //-----------POST-----------//
     $app->post('/create-event', PostCreateEventAction::class)
@@ -43,8 +48,12 @@ return function ($app) {
         ->setName('post_signin');
     $app->post('/creer-compte', PostCreerCompteAction::class)
         ->setName('post_creer_compte');
+    $app->post('/events', PostPublishEventAction::class)
+        ->setName('post_publish_event');
 
     //-----------API-----------//
+    $app->get("/api", GetApiHelp::class)
+        ->setName('api_help');
     $app->get("/api/categories", GetCategoriesApi::class)
         ->setName('api_categories');
     $app->get("/api/events", GetEventsApi::class)

@@ -1,0 +1,83 @@
+{% extends "base/base.html.twig" %}
+
+{% block body %}
+    <label for="categoryFilter" class="block text-gray-700 font-bold mb-2">Filtrer par catégorie :</label>
+    <select id="categoryFilter" class="mb-6 px-3 py-2 border rounded">
+        <option value="all">Toutes les catégories</option>
+        {% for category in categories %}
+            <option value="{{ category.id }}">{{ category.label }}</option>
+        {% endfor %}
+    </select>
+
+    <div class="space-y-8" id="eventsContainer">
+        {% for start_date, dateEvents in eventsByDate %}
+            <div class="date-group">
+                <h2 class="text-2xl font-bold text-black mb-4 border-b pb-2">
+                    📅 {{ start_date|date("d/m/Y") }}
+                </h2>
+                <div class="grid grid-cols-1 gap-4">
+                    {% for event in dateEvents %}
+                        <div class="bg-white shadow rounded-xl p-5 border border-gray-200 event" data-category-id="{{ event.category.id }}">
+                            <h3 class="text-xl font-semibold text-red-600 mb-2">
+                                {{ event.title }}
+                            </h3>
+                            <p class="text-sm text-gray-600">
+                                <span class="block">🏷️ <strong>Catégorie :</strong> {{ event.category.label }}</span>
+                                <span class="block">⏰ <strong>Date de début :</strong> {{ event.start_date|date("d/m/Y H:i") }}</span>
+                                {% if event.end_date %}
+                                    <span class="block">⏳ <strong>Date de fin :</strong> {{ event.end_date|date("d/m/Y H:i") }}</span>
+                                {% endif %}
+                                {% if event.is_published %}
+                                    <span class="block">✅ <strong>Statut :</strong> Publié</span>
+                                {% else %}
+                                    <span class="block">❌ <strong>Statut :</strong> Non publié</span>
+                                {% endif %}
+                                <form action="{{ url_for('post_publish_event') }}" method="post" class="mt-4">
+                                    <input type="hidden" name="event_id" value="{{ event.id }}"/>
+                                    {% if event.is_published %}
+                                        <button type="submit" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
+                                            Retirer la publication
+                                        </button>
+                                    {% else %}
+                                        <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                                            Publier l'événement
+                                        </button>
+                                    {% endif %}
+                                </form>
+                            </p>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const filter = document.getElementById("categoryFilter");
+            filter.addEventListener('change', function() {
+                const selectedCategory_id = this.value;
+                document.querySelectorAll(".date-group").forEach(dateGroup => {
+                    let isDisplay = false;
+                    dateGroup.querySelectorAll(".event").forEach(event => {
+                        isDisplay = false;
+                        const category_id = event.getAttribute("data-category-id");
+                        if((selectedCategory_id === "all") || (category_id === selectedCategory_id)) {
+                            isDisplay = true;
+                            event.style.display = 'block';
+                        } else {
+                            event.style.display = 'none';
+                        }
+                    })
+                    if(!isDisplay) {
+                        dateGroup.style.display = 'none';
+                    } else {
+                        dateGroup.style.display = 'block';
+                    }
+                });
+            });
+        });
+    </script>
+{% endblock %}

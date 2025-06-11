@@ -6,6 +6,7 @@ SET sql_mode = 'NO_AUTO_VALUE_ON_ZERO';
 
 -- Insert statements with corrected table and field names
 INSERT INTO User (id, email, password, role) VALUES
+    ('68bc3360-1831-450e-bfd5-dfc8b5367ae1', 'user1@mail.com', '$2y$10$kAPrT9SPUSTrd6a1XuhwlOVLur.ESuLgGmfVHn7.Ov6NGeoAYEEKW', 1000),
     ('a1b2c3d4-e5f6-7890-1234-56789abcdef0', 'alice@example.com', '$2y$10$uM2hV6Wz3yqKQZ3ZIrTBOuK8WLa6GVYppHTDbMwBt7k8RfiA/r1zC', 100),
     ('b2c3d4e5-f6a1-8901-2345-6789abcdef01', 'bob@example.com', '$2y$10$q3yk3DnEjwJdHeCeR1Ff7O9Q2K1rScI9AVCDrkOe1PtbHHuHZf8Wa', 1),
     ('c3d4e5f6-a1b2-9012-3456-789abcdef012', 'carol@example.com', '$2y$10$R38oxCNm4qMfYItmI6djZOmZPf.5BR7CV7miSBPpTltXEx7TmOWY.', 1),

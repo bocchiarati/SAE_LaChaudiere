@@ -32,7 +32,7 @@ class PostCreerCompteAction extends AbstractAction {
 
         $routeParser = RouteContext::fromRequest($request)->getRouteParser();
         // Générer l'URL depuis le nom de route
-        $url = $routeParser->urlFor('signin');
+        $url = $routeParser->urlFor('homepage');
         // Rediriger
         return $response
             ->withHeader('Location', $url)

@@ -44,13 +44,8 @@ class FormBuilder implements FormBuilderInterface {
     public function buildRegisterForm(): array {
         return [
             'actionRoute' => 'post_creer_compte',
-            'submit_button' => "S'enregistrer",
-            'links' => [
-                [
-                    "label" => "Déjà un compte ? Connectez vous dès maintenant !",
-                    "route" => "signin"
-                ]
-            ],
+            'submit_button' => "Enregistrer le nouvel admin",
+            'links' => [],
             'inputs' => [
                 [
                     'name' => 'email',
@@ -63,18 +58,19 @@ class FormBuilder implements FormBuilderInterface {
                     'name' => 'password',
                     'label' => 'Mot de passe',
                     'type' => 'password',
-                    'placeholder' => 'Renseigner votre mot de passe',
+                    'placeholder' => 'Renseigner le mot de passe',
                     "required" => true,
                 ],
                 [
                     'name' => 'repeat_password',
                     'label' => 'Mot de passe',
                     'type' => 'password',
-                    'placeholder' => 'Renseigner votre mot de passe à nouveau',
+                    'placeholder' => 'Renseigner le mot de passe à nouveau',
                     "required" => true,
                 ]
             ],
-            'selects' => []
+            'selects' => [],
+            'csrf_token' => $this->csrfTokenProvider->generate()
         ];
     }
 
@@ -169,7 +165,8 @@ class FormBuilder implements FormBuilderInterface {
                     "required" => true,
                 ]
             ],
-            'selects' => []
+            'selects' => [],
+            'csrf_token' => $this->csrfTokenProvider->generate()
         ];
     }
 }

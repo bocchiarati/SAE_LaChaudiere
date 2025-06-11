@@ -19,6 +19,7 @@
         </script>
         <link href="https://fonts.bunny.net/css?family=inter:400,600,700" rel="stylesheet" />
         <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.17/index.global.min.js"></script>
+        <link rel="icon" href="./flavicon.png">
     </head>
 
     <body class="bg-white text-gray-900 dark:bg-gray-900 dark:text-gray-100 font-sans">
@@ -26,11 +27,6 @@
         <header class="bg-white dark:bg-gray-800 shadow">
             <div class="max-w-7xl mx-auto px-4 py-6 flex items-center justify-between">
                 <h1 class="text-3xl font-bold text-rose-700 dark:text-rose-400">La Chaudière Agenda</h1>
-                <nav class="space-x-4 hidden md:block">
-                    <a href="#" class="text-sm font-medium text-gray-700 hover:text-rose-600 dark:text-gray-300 dark:hover:text-rose-400">Accueil</a>
-                    <a href="#" class="text-sm font-medium text-gray-700 hover:text-rose-600 dark:text-gray-300 dark:hover:text-rose-400">Événements</a>
-                    <a href="#" class="text-sm font-medium text-gray-700 hover:text-rose-600 dark:text-gray-300 dark:hover:text-rose-400">À propos</a>
-                </nav>
                 <button id="theme-toggle" class="text-sm px-4 py-2 rounded bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600 dark:text-white transition">
                     🌞 / 🌙
                 </button>
@@ -96,9 +92,9 @@
                 <span class="inline-block px-3 py-1 text-xs font-semibold rounded-full bg-rose-100 text-rose-800 dark:bg-rose-800 dark:text-white">
                   {{ category.label }}
                 </span>
-
+                {{imageEntrypoint}}
                 {{#each images}}
-                    <img src="{{ this.url }}" alt="Illustration de {{ title }}"
+                    <img src="{{ imageEntrypoint }}{{ this.url }}" alt="Illustration de {{ title }}"
                          class="w-full h-64 object-cover sm:h-80 md:h-96" />
                 {{/each}}
             </div>

@@ -7,6 +7,7 @@ use App\application_core\domain\entities\User;
 use App\webui\providers\interfaces\AuthnProviderInterface;
 use Slim\Psr7\Response;
 use Slim\Psr7\Request;
+use Slim\Routing\RouteContext;
 
 
 class SessionAuthnProvider implements AuthnProviderInterface {
@@ -35,13 +36,13 @@ class SessionAuthnProvider implements AuthnProviderInterface {
     }
 
     public function verifyUser(Response $response, Request $request) : ?Response {
-        if(!isConnected()) {
-            $routeParser = RouteContext::fromReqsigninuest($request)->getRouteParser();
+        if(!$this->isConnected()) {
+            $routeParser = RouteContext::fromRequest($request)->getRouteParser();
             $url = $routeParser->urlFor('signin');
             return $response
                 ->withHeader('Location', $url)
                 ->withStatus(302);
-        } else if(!isAdmin()) {
+        } else if(!$this->isAdmin()) {
             $routeParser = RouteContext::fromRequest($request)->getRouteParser();
             $url = $routeParser->urlFor('unvalide_user');
             return $response
@@ -55,7 +56,7 @@ class SessionAuthnProvider implements AuthnProviderInterface {
     private function isAdmin() : bool {
         if($this->isConnected()) {
             $user = $this->getSignedInUser();
-            if(in_array("admin", $user->roles)) {
+            if($user["role"] == 100) {
                 return true;
             }
             return false;
@@ -67,5 +68,6 @@ class SessionAuthnProvider implements AuthnProviderInterface {
         if($this->getSignedInUser() !== null) {
             return true;    
         }
+        return false;
     }
 }

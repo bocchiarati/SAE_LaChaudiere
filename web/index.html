@@ -48,15 +48,37 @@
 
         <!-- Templates -->
         <script id="calendarTemplate" type="text/x-handlebars-template">
-            <div class="flex flex-wrap gap-2 mb-4">
-                {{#each categories}}
-                <button id="{{this.id}}"
-                        class="category_button px-4 py-2 text-sm font-medium rounded-full border border-rose-600 text-rose-700 bg-rose-100 hover:bg-rose-200 dark:bg-gray-800 dark:text-rose-400 dark:border-rose-400 dark:hover:bg-gray-700 transition">
-                    {{this.label}}
+            <div class="flex justify-between">
+                <div class="flex flex-wrap gap-2 mb-4 w-3/4">
+                    {{#each categories}}
+                        <button id="{{this.id}}"
+                                class="category_button px-4 py-2 text-sm font-medium rounded-full border border-rose-600 text-rose-700 bg-rose-100 hover:bg-rose-200 dark:bg-gray-800 dark:text-rose-400 dark:border-rose-400 dark:hover:bg-gray-700 transition">
+                            {{this.label}}
+                        </button>
+                    {{/each}}
+                </div>
+                <button
+                        id="show_favoris"
+                        type="button"
+                        class="group relative text-gray-400 hover:text-red-500 transition duration-300 ease-in-out"
+                        aria-label="Ajouter aux favoris"
+                >
+                    <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                            class="w-6 h-6 group-hover:fill-red-500 transition-all duration-300"
+                    >
+                        <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                d="M4.318 6.318a4.5 4.5 0 016.364 0L12 7.636l1.318-1.318a4.5 4.5 0 116.364 6.364L12 20.364 4.318 12.682a4.5 4.5 0 010-6.364z"
+                        />
+                    </svg>
                 </button>
-                {{/each}}
             </div>
-
             <div id="calendar" class="bg-white dark:bg-gray-700 rounded-xl shadow p-4"></div>
         </script>
 
@@ -65,7 +87,30 @@
                 <!-- Titre -->
                 <div class="flex justify-between">
                     <h2 class="text-2xl font-bold text-rose-700 dark:text-rose-400">{{ event.title }}</h2>
-                    <button id="go_back" class="px-4 py-2 text-sm font-medium rounded-full border border-rose-600 text-rose-700 bg-rose-100 hover:bg-rose-200 dark:bg-gray-800 dark:text-rose-400 dark:border-rose-400 dark:hover:bg-gray-700 transition">Retour au calendrier</button>
+                    <div>
+                        <button
+                                id="favoris"
+                                type="button"
+                                class="group relative text-gray-400 hover:text-red-500 transition duration-300 ease-in-out"
+                                aria-label="Ajouter aux favoris"
+                        >
+                            <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    stroke="currentColor"
+                                    class="w-6 h-6 group-hover:fill-red-500 transition-all duration-300"
+                            >
+                                <path
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        stroke-width="2"
+                                        d="M4.318 6.318a4.5 4.5 0 016.364 0L12 7.636l1.318-1.318a4.5 4.5 0 116.364 6.364L12 20.364 4.318 12.682a4.5 4.5 0 010-6.364z"
+                                />
+                            </svg>
+                        </button>
+                        <button id="go_back" class="px-4 py-2 text-sm font-medium rounded-full border border-rose-600 text-rose-700 bg-rose-100 hover:bg-rose-200 dark:bg-gray-800 dark:text-rose-400 dark:border-rose-400 dark:hover:bg-gray-700 transition">Retour au calendrier</button>
+                    </div>
                 </div>
 
                 <!-- Dates -->

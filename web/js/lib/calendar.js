@@ -1,6 +1,7 @@
 import {load_event} from "../views/event_ui.js";
 import {getRessource} from "./api_loader.js";
 import {category_filtre_action} from "../controller/category_filtre_action.js";
+import {enlever_filtre} from "../controller/enlever_filtre_action";
 
 export function initCalendar() {
 
@@ -20,6 +21,7 @@ export function initCalendar() {
     calendar.render();
     loadEvents("/api/events", calendar);
     category_filtre_action(calendar);
+    enlever_filtre(calendar);
 }
 
 export async function loadEvents(url, calendar) {

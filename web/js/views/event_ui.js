@@ -14,7 +14,14 @@ export async function load_event(url) {
         event: (await getRessource(url)).event,
         entrypoint: entrypoint
     };
-    console.log(templateData);
+
+    templateData['event']['start_time'] = templateData['event']['start_date'].slice(11, 16);
+    const startDate = new Date(templateData['event']['start_date']);
+    templateData['event']['start_date'] = startDate.toLocaleDateString('fr-FR');
+    const endDate = new Date(templateData['event']['end_date']);
+    templateData['event']['end_date'] = endDate.toLocaleDateString('fr-FR');
+
+
     // Insertion du HTML généré dans l'élément avec l'ID "content"
     document.getElementById("event_detail_container").innerHTML = template(templateData);
     go_back()

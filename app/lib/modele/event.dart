@@ -2,9 +2,10 @@ class Event {
   final int id;
   final String title;
   final String description;
-  final String price;
   final DateTime startDate;
   final DateTime endDate;
+  final String url;
+  final String price;
   final String time;
   final int categoryId;
   final bool isPublished;
@@ -14,27 +15,33 @@ class Event {
     required this.id,
     required this.title,
     required this.description,
-    required this.price,
     required this.startDate,
     required this.endDate,
-    required this.time,
-    required this.categoryId,
-    required this.isPublished,
-    required this.userId,
+    required this.url,
+    this.price = 'Prix non renseigné',
+    this.time = '',
+    this.categoryId = 0,
+    this.isPublished = false,
+    this.userId = 'Utilisateur inconnu',
   });
 
-  factory Event.fromJson(Map<String, dynamic> json) {
+  static DateTime parseDateTime(String dateStr) {
+    return DateTime.parse(dateStr.replaceAll(' ', 'T'));
+  }
+
+  static Event fromJson(Map<String, dynamic> json) {
     return Event(
-      id: json['id'],
+      id: json['id'] ?? 0,
       title: json['title'] ?? 'Aucun titre',
       description: json['description'] ?? 'Aucune description',
-      price: json['price'] ?? 'Prix non renseigné',
-      startDate: DateTime.parse(json['start_date']),
-      endDate: DateTime.parse(json['end_date']),
-      time: json['time'],
-      categoryId: json['category_id'],
+      startDate: parseDateTime(json['start_date'] ?? DateTime.now().toString()),
+      endDate: parseDateTime(json['end_date'] ?? DateTime.now().toString()),
+      url: json['url']?.toString() ?? '',
+      price: json['price']?.toString() ?? 'Prix non renseigné',
+      time: json['time']?.toString() ?? '',
+      categoryId: json['category_id'] ?? 0,
       isPublished: json['is_published'] == 1,
-      userId: json['user_id'] ?? 'Unknown User',
+      userId: json['user_id']?.toString() ?? 'Utilisateur inconnu',
     );
   }
 }

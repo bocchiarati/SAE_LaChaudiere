@@ -49,24 +49,27 @@
         <!-- Templates -->
         <script id="calendarTemplate" type="text/x-handlebars-template">
             <div class="flex justify-between">
-                <div class="flex flex-wrap gap-2 mb-4">
-                    <button id="enlever_filtre"
-                            class="px-4 py-2 text-sm font-medium rounded-full border border-rose-600 text-rose-700 bg-rose-100 hover:bg-rose-200 dark:bg-gray-800 dark:text-rose-400 dark:border-rose-400 dark:hover:bg-gray-700 transition">
-                        Désélectionner tout
-                    </button>
-                    <button id="hide_filter"
-                            class="px-4 py-2 text-sm font-medium rounded-full border border-rose-600 text-rose-700 bg-rose-100 hover:bg-rose-200 dark:bg-gray-800 dark:text-rose-400 dark:border-rose-400 dark:hover:bg-gray-700 transition">
-                        Masquer les filtres
-                    </button>
+                <div>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <button id="enlever_filtre"
+                                class="px-4 py-2 text-sm font-medium rounded-full border border-rose-600 text-rose-700 bg-rose-100 hover:bg-rose-200 dark:bg-gray-800 dark:text-rose-400 dark:border-rose-400 dark:hover:bg-gray-700 transition">
+                            Désélectionner tout
+                        </button>
+                        <button id="hide_filter"
+                                class="px-4 py-2 text-sm font-medium rounded-full border border-rose-600 text-rose-700 bg-rose-100 hover:bg-rose-200 dark:bg-gray-800 dark:text-rose-400 dark:border-rose-400 dark:hover:bg-gray-700 transition">
+                            Masquer les filtres
+                        </button>
+                    </div>
+                    <div id="container_filtre" class="flex flex-wrap gap-2 mb-4">
+                        {{#each categories}}
+                        <button id="{{this.id}}"
+                                class="category_button px-4 py-2 text-sm font-medium rounded-full border border-rose-600 text-rose-700 bg-rose-100 hover:bg-rose-200 dark:bg-gray-800 dark:text-rose-400 dark:border-rose-400 dark:hover:bg-gray-700 transition">
+                            {{this.label}}
+                        </button>
+                        {{/each}}
+                    </div>
                 </div>
-                <div id="container_filtre" class="flex flex-wrap gap-2 mb-4">
-                    {{#each categories}}
-                    <button id="{{this.id}}"
-                            class="category_button px-4 py-2 text-sm font-medium rounded-full border border-rose-600 text-rose-700 bg-rose-100 hover:bg-rose-200 dark:bg-gray-800 dark:text-rose-400 dark:border-rose-400 dark:hover:bg-gray-700 transition">
-                        {{this.label}}
-                    </button>
-                    {{/each}}
-                </div>
+
                 <button
                         id="show_favoris"
                         type="button"

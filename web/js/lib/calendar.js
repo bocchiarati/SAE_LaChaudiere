@@ -13,7 +13,7 @@ export function initCalendar() {
         eventTextColor: '#ffffff', // Texte blanc
         events: [],
         eventClick: async function (info) {
-            await load_event(info.event.id);
+            await load_event(info.event.extendedProps.apiUrl);
             document.getElementById("calendar_container").classList.add("hidden");
         }
     });
@@ -26,11 +26,13 @@ export async function loadEvents(url, calendar) {
     const events = (await getRessource(url)).events;
     events.forEach(event => {
         calendar.addEvent({
-            'id':event.url,
-            'title': event.title,
-            'description': event.description,
-            'start':formatDate(event.start),
-            'end':formatDate(event.end),
+            id:event.id,
+            title: event.title,
+            start:formatDate(event.start),
+            end:formatDate(event.end),
+            extendedProps: {
+                apiUrl: event.url
+            }
         });
     })
 }

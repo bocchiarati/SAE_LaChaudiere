@@ -27,13 +27,23 @@
         <header class="bg-white dark:bg-gray-800 shadow">
             <div class="max-w-7xl mx-auto px-4 py-6 flex items-center justify-between">
                 <h1 class="text-3xl font-bold text-rose-700 dark:text-rose-400">La Chaudière Agenda</h1>
-                <button id="theme-toggle" class="text-sm px-4 py-2 rounded bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600 dark:text-white transition">
+                <nav class="flex items-center space-x-6 text-base font-medium text-gray-700 dark:text-gray-200">
+                    <a href="menu.html" class="hover:text-rose-600 dark:hover:text-rose-400 transition">Menu</a>
+                    <span class="text-gray-400 dark:text-gray-500">|</span>
+                    <a href="index.html" class="hover:text-rose-600 dark:hover:text-rose-400 transition">Agenda</a>
+                    <span class="text-gray-400 dark:text-gray-500">|</span>
+                    <a href="favoris.html" class="hover:text-rose-600 dark:hover:text-rose-400 transition">Favoris</a>
+                    <span class="ml-4">
+                  <button id="theme-toggle" class="text-sm px-4 py-2 rounded bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600 dark:text-white transition">
                     🌞 / 🌙
-                </button>
+                  </button>
+                </span>
+                </nav>
             </div>
         </header>
 
-        <!-- Main content -->
+
+    <!-- Main content -->
         <main class="max-w-7xl mx-auto p-4 space-y-10">
             <section class="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow border-l-4 border-rose-600 dark:border-rose-400">
                 <div id="calendar_container"></div>

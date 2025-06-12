@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="fr" class="dark">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>La Chaudière Agenda</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif']
+                    }
+                }
+            }
+        };
+    </script>
+    <link href="https://fonts.bunny.net/css?family=inter:400,600,700" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.17/index.global.min.js"></script>
+    <link rel="icon" href="./flavicon.png">
+</head>
+
+<body class="bg-white text-gray-900 dark:bg-gray-900 dark:text-gray-100 font-sans">
+    <!-- Header avec navbar -->
+    <header class="bg-white dark:bg-gray-800 shadow">
+        <div class="max-w-7xl mx-auto px-4 py-6 flex items-center justify-between">
+            <h1 class="text-3xl font-bold text-rose-700 dark:text-rose-400">La Chaudière Agenda</h1>
+            <nav class="flex items-center space-x-6 text-base font-medium text-gray-700 dark:text-gray-200">
+                <a href="#" class="hover:text-rose-600 dark:hover:text-rose-400 transition">Menu</a>
+                <span class="text-gray-400 dark:text-gray-500">|</span>
+                <a href="index.html" class="hover:text-rose-600 dark:hover:text-rose-400 transition">Agenda</a>
+                <span class="text-gray-400 dark:text-gray-500">|</span>
+                <a href="favoris.html" class="hover:text-rose-600 dark:hover:text-rose-400 transition">Favoris</a>
+                <span class="ml-4">
+              <button id="theme-toggle" class="text-sm px-4 py-2 rounded bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600 dark:text-white transition">
+                🌞 / 🌙
+              </button>
+            </span>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Contenu principal -->
+    <main class="max-w-5xl mx-auto my-12 px-4">
+        <h2 class="text-4xl font-bold text-center text-gray-900 dark:text-white mb-8">Bienvenue sur La Chaudière Agenda</h2>
+
+        <p class="text-lg text-gray-600 dark:text-gray-300 text-center mb-10">
+            Explorez les sections disponibles du site :
+        </p>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <a href="index.html" class="block p-6 border border-gray-200 dark:border-gray-700 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-800 transition">
+                <h3 class="text-xl font-semibold text-rose-600 dark:text-rose-400 mb-2">Agenda</h3>
+                <p class="text-gray-600 dark:text-gray-400">Voir tous les événements à venir et passés.</p>
+            </a>
+            <a href="favoris.html" class="block p-6 border border-gray-200 dark:border-gray-700 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-800 transition">
+                <h3 class="text-xl font-semibold text-rose-600 dark:text-rose-400 mb-2">Favoris</h3>
+                <p class="text-gray-600 dark:text-gray-400">Accéder à vos événements enregistrés.</p>
+            </a>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-100 dark:bg-gray-800 text-center text-sm py-4 mt-10 text-gray-600 dark:text-gray-400">
+        <p>&copy; 2025 La Chaudière. Tous droits réservés.</p>
+    </footer>
+
+    <!-- App JS -->
+    <script type="module" src="js/index.js" defer></script>
+</body>
+</html>

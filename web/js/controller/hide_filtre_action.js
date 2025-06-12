@@ -1,10 +1,10 @@
-import {loadEvents} from "../lib/calendar";
+import { toggleFilterVisibility } from "../views/filter_ui.js";
 
-export function hide_filter(){
-    let btnFilter = document.getElementById("hide_filter");
-
-    document.getElementById("hide_filter").addEventListener("click", function(){
-
-    })
-
+export function toggle_filter_action() {
+    const toggleButton = document.getElementById("hide_filter");
+    if (toggleButton) {
+        toggleButton.addEventListener("click", () => {
+            toggleFilterVisibility();
+        });
+    }
 }

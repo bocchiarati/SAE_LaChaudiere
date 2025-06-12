@@ -1,7 +1,8 @@
 import {load_event} from "../views/event_ui.js";
 import {getRessource} from "./api_loader.js";
 import {category_filtre_action} from "../controller/category_filtre_action.js";
-import {enlever_filtre} from "../controller/enlever_filtre_action";
+import {enlever_filtre_action} from "../controller/enlever_filtre_action.js";
+import {toggle_filter_action} from "../controller/hide_filtre_action.js";
 
 export function initCalendar() {
 
@@ -21,7 +22,8 @@ export function initCalendar() {
     calendar.render();
     loadEvents("/api/events", calendar);
     category_filtre_action(calendar);
-    enlever_filtre(calendar);
+    enlever_filtre_action(calendar);
+    toggle_filter_action();
 }
 
 export async function loadEvents(url, calendar) {

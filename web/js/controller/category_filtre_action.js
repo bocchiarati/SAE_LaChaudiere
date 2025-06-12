@@ -5,7 +5,7 @@ export function category_filtre_action(calendar){
 
     document.querySelectorAll(".category_button").forEach(btn => {
         btn.addEventListener("click", function() {
-            if(activeButton === btn){
+            if(btn.style.backgroundColor === "#FFFFFF"){
                 activeButton = null;
                 btn.style.background = "";
                 calendar.removeAllEvents();

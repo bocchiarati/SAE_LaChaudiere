@@ -1,10 +1,11 @@
-import {loadEvents} from "../lib/calendar";
+import {loadEvents} from "../lib/calendar.js";
+import {toggleDeselection} from "../views/enlever_filtre_ui.js";
 
-export function enlever_filtre (calendar) {
+export function enlever_filtre_action (calendar) {
     let btnEnlever = document.getElementById("enlever_filtre");
 
     btnEnlever.addEventListener("click", function (){
-        document.querySelectorAll(".category_button").forEach(btn => btn.style.backgroundColor = "");
+        toggleDeselection();
         calendar.removeAllEvents();
         loadEvents("/api/events", calendar);
     })

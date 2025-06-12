@@ -35,7 +35,7 @@ class GetEventsApi extends AbstractApi {
             ->withHeader('Content-Type', 'application/json')
             ->withHeader('Access-Control-Allow-Origin', '*') // CORS
             ->withHeader('Access-Control-Allow-Headers', 'Content-Type, Accept, Origin, Authorization')
-            ->withHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS')
+            ->withHeader('Access-Control-Allow-Methods', 'GET')
             ->withStatus(200);
     }
 

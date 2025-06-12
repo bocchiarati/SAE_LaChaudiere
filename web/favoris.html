@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="fr" class="dark">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>La Chaudière Agenda</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif']
+                    }
+                }
+            }
+        };
+    </script>
+    <link href="https://fonts.bunny.net/css?family=inter:400,600,700" rel="stylesheet" />
+    <link rel="icon" href="./flavicon.png">
+</head>
+
+<body class="bg-white text-gray-900 dark:bg-gray-900 dark:text-gray-100 font-sans">
+    <!-- Header -->
+    <header class="bg-white dark:bg-gray-800 shadow">
+        <div class="max-w-7xl mx-auto px-4 py-6 flex items-center justify-between">
+            <h1 class="text-3xl font-bold text-rose-700 dark:text-rose-400">La Chaudière Agenda</h1>
+            <nav class="flex items-center space-x-6 text-base font-medium text-gray-700 dark:text-gray-200">
+                <a href="menu.html" class="hover:text-rose-600 dark:hover:text-rose-400 transition">Menu</a>
+                <span class="text-gray-400 dark:text-gray-500">|</span>
+                <a href="index.html" class="hover:text-rose-600 dark:hover:text-rose-400 transition">Agenda</a>
+                <span class="text-gray-400 dark:text-gray-500">|</span>
+                <a href="favoris.html" class="hover:text-rose-600 dark:hover:text-rose-400 transition">Favoris</a>
+                <span class="ml-4">
+                      <button id="theme-toggle" class="text-sm px-4 py-2 rounded bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600 dark:text-white transition">
+                        🌞 / 🌙
+                      </button>
+                    </span>
+            </nav>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto p-4 space-y-10">
+        <section class="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow border-l-4 border-rose-600 dark:border-rose-400">
+            <div id="favorites_container"></div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-100 dark:bg-gray-800 text-center text-sm py-4 mt-10 text-gray-600 dark:text-gray-400">
+        <p>&copy; 2025 La Chaudière. Tous droits réservés.</p>
+    </footer>
+
+    <!-- Templates -->
+    <script id="favoritesTemplate" type="text/x-handlebars-template">
+        {{#each favorites}}
+        <div class="bg-white dark:bg-gray-700 rounded-xl shadow-lg p-6 space-y-4 text-gray-800 dark:text-gray-100 mb-8">
+            <!-- Titre de l'événement -->
+            <h2 class="text-2xl font-bold text-rose-700 dark:text-rose-400">
+                {{ this.title }}
+            </h2>
+
+            <!-- Dates -->
+            <p class="text-sm text-gray-600 dark:text-gray-300">
+                📅 {{ this.start_date }} – {{ this.end_date }}
+            </p>
+
+            <!-- Heure -->
+            <p class="text-sm text-gray-600 dark:text-gray-300">
+                🕒 {{ this.start_time }}
+            </p>
+
+            <!-- Description -->
+            <div class="text-base leading-relaxed">
+                {{ this.description }}
+            </div>
+
+            <!-- Prix -->
+            <p class="text-sm font-medium text-gray-800 dark:text-gray-200">
+                🎟️ Prix : <span class="font-semibold text-rose-600 dark:text-rose-400">{{ this.price }}€</span>
+            </p>
+        </div>
+        {{/each}}
+    </script>
+
+
+
+    <!-- External Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.7/handlebars.min.js"></script>
+
+    <!-- App JS -->
+    <script type="module" src="js/index.js" defer></script>
+    </body>
+</html>

@@ -1,6 +1,7 @@
 import {load_event} from "../views/event_ui.js";
 import {getRessource} from "./api_loader.js";
 import {category_filtre_action} from "../controller/category_filtre_action.js";
+import {filtre_favoris_action} from "../controller/favorites_action.js";
 import {enlever_filtre_action} from "../controller/enlever_filtre_action.js";
 import {toggle_filter_action} from "../controller/hide_filtre_action.js";
 
@@ -15,13 +16,14 @@ export function initCalendar() {
         eventTextColor: '#ffffff', // Texte blanc
         events: [],
         eventClick: async function (info) {
-            await load_event(info.event.id);
+            await load_event(info.event.extendedProps.apiUrl);
             document.getElementById("calendar_container").classList.add("hidden");
         }
     });
     calendar.render();
     loadEvents("/api/events", calendar);
     category_filtre_action(calendar);
+    filtre_favoris_action(calendar);
     enlever_filtre_action(calendar);
     toggle_filter_action();
 }
@@ -30,11 +32,13 @@ export async function loadEvents(url, calendar) {
     const events = (await getRessource(url)).events;
     events.forEach(event => {
         calendar.addEvent({
-            'id':event.url,
-            'title': event.title,
-            'description': event.description,
-            'start':formatDate(event.start),
-            'end':formatDate(event.end),
+            id:event.id,
+            title: event.title,
+            start:formatDate(event.start),
+            end:formatDate(event.end),
+            extendedProps: {
+                apiUrl: event.url
+            }
         });
     })
 }

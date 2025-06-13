@@ -4,7 +4,7 @@ namespace App\application_core\application\auth;
 
 use App\application_core\application\auth\interfaces\AuthnServiceInterface;
 use App\application_core\domain\entities\User;
-use Couchbase\AuthenticationException;
+use App\application_core\application\exceptions\AuthenticationException;
 
 class AuthnService implements AuthnServiceInterface {
     public function register($email, $mdp) : array

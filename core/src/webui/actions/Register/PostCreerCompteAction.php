@@ -5,7 +5,7 @@ namespace App\webui\actions\Register;
 use App\application_core\application\exceptions\DatabaseException;
 use App\application_core\application\auth\AuthnService;
 use App\webui\actions\abstract\AbstractAction;
-use MongoDB\Driver\Exception\AuthenticationException;
+use App\application_core\application\exceptions\AuthenticationException;
 use Slim\Psr7\Request;
 use Slim\Psr7\Response;
 use Slim\Routing\RouteContext;
@@ -26,7 +26,7 @@ class PostCreerCompteAction extends AbstractAction {
         } catch(DatabaseException $e) {
             return $twig->render($response, 'error/index.html.twig', ["code" => 500, "message" => "Erreur interne du serveur, " . $e->getMessage() . " Veuillez essayer plus tard."]);
         } catch(AuthenticationException $e) {
-            return $twig->render($response, 'error/index.html.twig', ["code" => 500, "message" => $e->getMessage()]);
+            return $twig->render($response, 'error/index.html.twig', ["code" => 401, "message" => $e->getMessage()]);
         }
 
 

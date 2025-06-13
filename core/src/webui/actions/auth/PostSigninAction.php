@@ -7,7 +7,7 @@ use App\application_core\application\exceptions\DatabaseException;
 use App\application_core\application\useCases\AppService;
 use App\webui\actions\abstract\AbstractAction;
 use App\webui\providers\interfaces\AuthnProviderInterface;
-use MongoDB\Driver\Exception\AuthenticationException;
+use App\application_core\application\exceptions\AuthenticationException;
 use Slim\Psr7\Request;
 use Slim\Psr7\Response;
 use Slim\Routing\RouteContext;
@@ -36,7 +36,7 @@ class PostSigninAction extends AbstractAction{
         } catch(DatabaseException $e) {
             return $twig->render($response, 'error/index.html.twig', ["code" => 500, "message" => "Erreur interne du serveur, " . $e->getMessage() . " Veuillez essayer plus tard."]);
         } catch(AuthenticationException $e) {
-            return $twig->render($response, 'error/index.html.twig', ["code" => 500, "message" => "Erreur lors de l'authentification, " . $e->getMessage() . " Veuillez essayer plus tard."]);
+            return $twig->render($response, 'error/index.html.twig', ["code" => 401, "message" => "Erreur lors de l'authentification, " . $e->getMessage() . " Veuillez essayer plus tard."]);
         }
         $routeParser = RouteContext::fromRequest($request)->getRouteParser();
         $url = $routeParser->urlFor('homepage');

@@ -1,6 +1,6 @@
 import {getRessource} from "../lib/api_loader.js";
 import {go_back} from "../controller/retour_action.js";
-import {imageEntrypoint} from "../conf";
+import {imageEntrypoint} from "../conf.js";
 
 export async function load_event(url) {
     // Récupération du template Handlebars depuis le DOM

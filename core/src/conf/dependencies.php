@@ -3,9 +3,9 @@
 use App\application_core\application\auth\AuthnService;
 use App\application_core\application\auth\interfaces\AuthnServiceInterface;
 use App\application_core\application\useCases\AppService;
-use App\application_core\application\useCases\FormBuilder;
 use App\application_core\application\useCases\interfaces\AppServiceInterface;
-use App\application_core\application\useCases\interfaces\FormBuilderInterface;
+use App\webui\providers\FormBuilder;
+use App\webui\providers\interfaces\FormBuilderInterface;
 use App\webui\providers\CsrfTokenProvider;
 use App\webui\providers\interfaces\AuthnProviderInterface;
 use App\webui\providers\interfaces\CsrfTokenProviderInterface;

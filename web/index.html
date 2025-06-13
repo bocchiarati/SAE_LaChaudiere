@@ -27,13 +27,23 @@
         <header class="bg-white dark:bg-gray-800 shadow">
             <div class="max-w-7xl mx-auto px-4 py-6 flex items-center justify-between">
                 <h1 class="text-3xl font-bold text-rose-700 dark:text-rose-400">La Chaudière Agenda</h1>
-                <button id="theme-toggle" class="text-sm px-4 py-2 rounded bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600 dark:text-white transition">
+                <nav class="flex items-center space-x-6 text-base font-medium text-gray-700 dark:text-gray-200">
+                    <a href="menu.html" class="hover:text-rose-600 dark:hover:text-rose-400 transition">Menu</a>
+                    <span class="text-gray-400 dark:text-gray-500">|</span>
+                    <a href="index.html" class="hover:text-rose-600 dark:hover:text-rose-400 transition">Agenda</a>
+                    <span class="text-gray-400 dark:text-gray-500">|</span>
+                    <a href="favoris.html" class="hover:text-rose-600 dark:hover:text-rose-400 transition">Favoris</a>
+                    <span class="ml-4">
+                  <button id="theme-toggle" class="text-sm px-4 py-2 rounded bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600 dark:text-white transition">
                     🌞 / 🌙
-                </button>
+                  </button>
+                </span>
+                </nav>
             </div>
         </header>
 
-        <!-- Main content -->
+
+    <!-- Main content -->
         <main class="max-w-7xl mx-auto p-4 space-y-10">
             <section class="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow border-l-4 border-rose-600 dark:border-rose-400">
                 <div id="calendar_container"></div>
@@ -48,15 +58,50 @@
 
         <!-- Templates -->
         <script id="calendarTemplate" type="text/x-handlebars-template">
-            <div class="flex flex-wrap gap-2 mb-4">
-                {{#each categories}}
-                <button id="{{this.id}}"
-                        class="category_button px-4 py-2 text-sm font-medium rounded-full border border-rose-600 text-rose-700 bg-rose-100 hover:bg-rose-200 dark:bg-gray-800 dark:text-rose-400 dark:border-rose-400 dark:hover:bg-gray-700 transition">
-                    {{this.label}}
-                </button>
-                {{/each}}
-            </div>
+            <div class="flex justify-between">
+                <div>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <button id="enlever_filtre"
+                                class="px-4 py-2 text-sm font-medium rounded-full border border-rose-600 text-rose-700 bg-rose-100 hover:bg-rose-200 dark:bg-gray-800 dark:text-rose-400 dark:border-rose-400 dark:hover:bg-gray-700 transition">
+                            Désélectionner tout
+                        </button>
+                        <button id="hide_filter"
+                                class="px-4 py-2 text-sm font-medium rounded-full border border-rose-600 text-rose-700 bg-rose-100 hover:bg-rose-200 dark:bg-gray-800 dark:text-rose-400 dark:border-rose-400 dark:hover:bg-gray-700 transition">
+                            Masquer les filtres
+                        </button>
+                    </div>
+                    <div id="container_filtre" class="flex flex-wrap gap-2 mb-4">
+                        {{#each categories}}
+                        <button id="{{this.id}}"
+                                class="category_button px-4 py-2 text-sm font-medium rounded-full border border-rose-600 text-rose-700 bg-rose-100 hover:bg-rose-200 dark:bg-gray-800 dark:text-rose-400 dark:border-rose-400 dark:hover:bg-gray-700 transition">
+                            {{this.label}}
+                        </button>
+                        {{/each}}
+                    </div>
+                </div>
 
+                <button
+                        id="show_favoris"
+                        type="button"
+                        class="group relative text-gray-400 hover:text-red-500 transition duration-300 ease-in-out"
+                        aria-label="Ajouter aux favoris"
+                >
+                    <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                            class="w-6 h-6 group-hover:fill-red-500 transition-all duration-300"
+                    >
+                        <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                d="M4.318 6.318a4.5 4.5 0 016.364 0L12 7.636l1.318-1.318a4.5 4.5 0 116.364 6.364L12 20.364 4.318 12.682a4.5 4.5 0 010-6.364z"
+                        />
+                    </svg>
+                </button>
+            </div>
             <div id="calendar" class="bg-white dark:bg-gray-700 rounded-xl shadow p-4"></div>
         </script>
 
@@ -64,37 +109,59 @@
             <div class="bg-white dark:bg-gray-700 rounded-xl shadow-lg p-6 space-y-4 text-gray-800 dark:text-gray-100">
                 <!-- Titre -->
                 <div class="flex justify-between">
-                    <h2 class="text-2xl font-bold text-rose-700 dark:text-rose-400">{{ title }}</h2>
-                    <button id="go_back" class="px-4 py-2 text-sm font-medium rounded-full border border-rose-600 text-rose-700 bg-rose-100 hover:bg-rose-200 dark:bg-gray-800 dark:text-rose-400 dark:border-rose-400 dark:hover:bg-gray-700 transition">Retour au calendrier</button>
+                    <h2 class="text-2xl font-bold text-rose-700 dark:text-rose-400">{{ event.title }}</h2>
+                    <div>
+                        <button
+                                id="favoris"
+                                type="button"
+                                class="group relative text-gray-400 hover:text-red-500 transition duration-300 ease-in-out"
+                                aria-label="Ajouter aux favoris"
+                        >
+                            <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    stroke="currentColor"
+                                    class="w-6 h-6 group-hover:fill-red-500 transition-all duration-300"
+                            >
+                                <path
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        stroke-width="2"
+                                        d="M4.318 6.318a4.5 4.5 0 016.364 0L12 7.636l1.318-1.318a4.5 4.5 0 116.364 6.364L12 20.364 4.318 12.682a4.5 4.5 0 010-6.364z"
+                                />
+                            </svg>
+                        </button>
+                        <button id="go_back" class="px-4 py-2 text-sm font-medium rounded-full border border-rose-600 text-rose-700 bg-rose-100 hover:bg-rose-200 dark:bg-gray-800 dark:text-rose-400 dark:border-rose-400 dark:hover:bg-gray-700 transition">Retour au calendrier</button>
+                    </div>
                 </div>
 
                 <!-- Dates -->
                 <p class="text-sm text-gray-600 dark:text-gray-300">
-                    📅 {{ start_date }} – {{ end_date }}
+                    📅 {{ event.start_date }} – {{ event.end_date }}
                 </p>
 
                 <!-- Heure -->
                 <p class="text-sm text-gray-600 dark:text-gray-300">
-                    🕒 {{ time }}
+                    🕒 {{ event.start_time }}
                 </p>
 
                 <!-- Description -->
                 <div class="text-base leading-relaxed">
-                    {{ description }}
+                    {{ event.description }}
                 </div>
 
                 <!-- Prix -->
                 <p class="text-sm font-medium text-gray-800 dark:text-gray-200">
-                    🎟️ Prix : <span class="font-semibold text-rose-600 dark:text-rose-400">{{ price }}€</span>
+                    🎟️ Prix : <span class="font-semibold text-rose-600 dark:text-rose-400">{{ event.price }}€</span>
                 </p>
 
                 <!-- Catégorie -->
                 <span class="inline-block px-3 py-1 text-xs font-semibold rounded-full bg-rose-100 text-rose-800 dark:bg-rose-800 dark:text-white">
-                  {{ category.label }}
+                  {{ event.category.label }}
                 </span>
-                {{imageEntrypoint}}
-                {{#each images}}
-                    <img src="{{ imageEntrypoint }}{{ this.url }}" alt="Illustration de {{ title }}"
+                {{#each event.images}}
+                    <img src="{{ ../entrypoint }}{{ this.url }}" alt="Illustration de {{ ../event.title }}"
                          class="w-full h-64 object-cover sm:h-80 md:h-96" />
                 {{/each}}
             </div>

@@ -1,3 +1,6 @@
+import 'event_image.dart';
+
+
 class Event {
   final int id;
   final String title;
@@ -10,6 +13,7 @@ class Event {
   final int categoryId;
   final bool isPublished;
   final String userId;
+  final List<Image> images; // Ajout du champ images
 
   Event({
     required this.id,
@@ -23,6 +27,7 @@ class Event {
     this.categoryId = 0,
     this.isPublished = false,
     this.userId = 'Utilisateur inconnu',
+    this.images = const [], // Initialisation par défaut
   });
 
   static DateTime parseDateTime(String dateStr) {
@@ -30,6 +35,12 @@ class Event {
   }
 
   static Event fromJson(Map<String, dynamic> json) {
+    // Parse images
+    List<Image> images = [];
+    if (json['images'] != null) {
+      images = (json['images'] as List).map((imageJson) => Image.fromJson(imageJson)).toList();
+    }
+
     return Event(
       id: json['id'] ?? 0,
       title: json['title'] ?? 'Aucun titre',
@@ -42,6 +53,7 @@ class Event {
       categoryId: json['category_id'] ?? 0,
       isPublished: json['is_published'] == 1,
       userId: json['user_id']?.toString() ?? 'Utilisateur inconnu',
+      images: images, // Ajout des images
     );
   }
 }

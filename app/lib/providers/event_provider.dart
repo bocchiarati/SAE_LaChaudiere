@@ -30,9 +30,13 @@ class EventProvider with ChangeNotifier {
       _events = await eventService.fetchEvents();
       _categories = await eventService.fetchCategories();
     } catch (e) {
-      print('Error fetching events or categories: $e');
+      if (kDebugMode) {
+        print('Error fetching events or categories: $e');
+      }
       if (e is FormatException) {
-        print('Response: ${e.message}');
+        if (kDebugMode) {
+          print('Response: ${e.message}');
+        }
       }
     } finally {
       _isLoading = false;

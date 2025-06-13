@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import '../providers/event_provider.dart';
+import '../providers/theme_provider.dart'; // Assurez-vous d'importer le ThemeProvider
 import '../widget/event_search_bar.dart';
 import '../widget/event_list.dart';
 import 'EventDetailScreen.dart';
@@ -50,6 +51,7 @@ class _EventListScreenState extends State<EventListScreen> {
   @override
   Widget build(BuildContext context) {
     final eventProvider = Provider.of<EventProvider>(context);
+    final themeProvider = Provider.of<ThemeProvider>(context);
 
     if (!eventProvider.isLoading && eventProvider.events.isEmpty) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -60,6 +62,14 @@ class _EventListScreenState extends State<EventListScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Liste des Événements'),
+        actions: [
+          Switch(
+            value: themeProvider.isDarkMode,
+            onChanged: (value) {
+              themeProvider.toggleTheme(value);
+            },
+          ),
+        ],
       ),
       body: Column(
         children: [
@@ -121,8 +131,3 @@ class _EventListScreenState extends State<EventListScreen> {
     );
   }
 }
-
-
-
-
-

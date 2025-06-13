@@ -1,6 +1,6 @@
 <?php
 
-namespace App\application_core\application\useCases;
+namespace App\webui\providers;
 
 use App\application_core\application\useCases\interfaces\AppServiceInterface;
 use App\application_core\application\useCases\interfaces\FormBuilderInterface;

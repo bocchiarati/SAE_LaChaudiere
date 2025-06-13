@@ -23,7 +23,11 @@ class PostCategoryPersoAction extends AbstractAction{
         $libelle = $data['libelle'];
         $description = $data['description'];
 
-        $this->appService->creerCategory($libelle,$description);
+        try {
+            $this->appService->creerCategory($libelle,$description);
+        } catch (\Throwable $th) {
+            return $twig->render($response, 'error/index.html.twig', ["code" => 500, "message" => "Erreur interne du serveur, " . $th->getMessage() . " Veuillez essayer plus tard."]);
+        }
 
         $routeParser = RouteContext::fromRequest($request)->getRouteParser();
         $url = $routeParser->urlFor('homepage');

@@ -29,15 +29,13 @@ class PostSigninAction extends AbstractAction{
         $password = $data['password'];
 
         try{
-            $app = new AppService();
-            $user = $app->getUser($email);
-            $id = $user['id'];
             $this->authnProvider->signin($email, $password);
         } catch(DatabaseException $e) {
             return $twig->render($response, 'error/index.html.twig', ["code" => 500, "message" => "Erreur interne du serveur, " . $e->getMessage() . " Veuillez essayer plus tard."]);
         } catch(AuthenticationException $e) {
             return $twig->render($response, 'error/index.html.twig', ["code" => 401, "message" => "Erreur lors de l'authentification, " . $e->getMessage() . " Veuillez essayer plus tard."]);
         }
+
         $routeParser = RouteContext::fromRequest($request)->getRouteParser();
         $url = $routeParser->urlFor('homepage');
         return $response

@@ -4,7 +4,7 @@ namespace App\application_core\application\auth;
 
 use App\application_core\application\auth\interfaces\AuthnServiceInterface;
 use App\application_core\domain\entities\User;
-use MongoDB\Driver\Exception\AuthenticationException;
+use Couchbase\AuthenticationException;
 
 class AuthnService implements AuthnServiceInterface {
     public function register($email, $mdp) : array

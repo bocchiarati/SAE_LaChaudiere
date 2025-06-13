@@ -28,6 +28,13 @@ $app = (require_once __DIR__ . '/dependencies.php')($container);
 AppFactory::setContainer($container);
 $app = AppFactory::create();
 
+$app->add(function($request, $handler) use ($app) {
+    $handler->handle($request);
+    return $handler->handle($request)
+        ->withHeader('Access-Control-Allow-Origin', '*') // CORS
+        ->withHeader('Access-Control-Allow-Headers', 'Content-Type, Accept, Origin, Authorization');
+});
+
 
 $app->add(function ($request, $handler) use ($app, $twig) {
         /** @var AuthnProviderInterface $authnProvider */

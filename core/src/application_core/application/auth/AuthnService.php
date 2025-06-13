@@ -26,12 +26,10 @@ class AuthnService implements AuthnServiceInterface {
     public function verifyCredentials($email, $mdp): bool {
         $user = User::where('email','=', $email)->first();
         if($user == null) {
-            throw new AuthenticationException("TEMPORAIRE A SUPPRIMER. Utilisateur inexistant.");
-            //throw new AuthenticationException("Erreur lors de l'authentification.");
+            throw new AuthenticationException("Erreur lors de l'authentification.");
         } else {
             if (!password_verify($mdp,$user->password)) {
-                throw new AuthenticationException("pas meme");
-                //throw new AuthenticationException("Erreur lors de l'authentification.");
+                throw new AuthenticationException("Erreur lors de l'authentification.");
             } else {
                 return true;
             }

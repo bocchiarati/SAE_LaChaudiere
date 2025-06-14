@@ -3,7 +3,7 @@
 namespace App\webui\providers;
 
 use App\application_core\application\useCases\interfaces\AppServiceInterface;
-use App\application_core\application\useCases\interfaces\FormBuilderInterface;
+use App\webui\providers\interfaces\FormBuilderInterface;
 use App\webui\providers\interfaces\CsrfTokenProviderInterface;
 
 class FormBuilder implements FormBuilderInterface {

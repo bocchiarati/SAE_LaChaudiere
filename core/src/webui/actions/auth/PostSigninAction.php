@@ -25,8 +25,16 @@ class PostSigninAction extends AbstractAction{
     {
         $twig = Twig::fromRequest($request);
         $data = $request->getParsedBody();
-        $email = $data['email'];
+        $email = filter_var($data['email'], FILTER_SANITIZE_EMAIL);
         $password = $data['password'];
+
+        try {
+            if (filter_var($email, FILTER_VALIDATE_EMAIL) === false) {
+                throw new AuthenticationException("email invalide");
+            }
+        } catch(AuthenticationException $e){
+            return $twig->render($response, 'error/index.html.twig', ["code" => 401, "message" => "Erreur lors de l'authentification, " . $e->getMessage() . " Veuillez essayer plus tard."]);
+        }
 
         try{
             $this->authnProvider->signin($email, $password);

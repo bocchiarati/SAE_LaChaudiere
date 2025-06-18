@@ -15,6 +15,16 @@ class GetSignOutAction extends AbstractAction {
     }
 
     public function __invoke(Request $request, Response $response, array $args) {
+        $redirection = $this->authnProvider->verifyUser();
+        if ($redirection !== null) {
+            $routeParser = RouteContext::fromRequest($request)->getRouteParser();
+            $url = $routeParser->urlFor($redirection);
+
+            return $response
+                ->withHeader('Location', $url)
+                ->withStatus(302);
+        }
+        
         $this->authnProvider->signOut();
 
         $routeParser = RouteContext::fromRequest($request)->getRouteParser();

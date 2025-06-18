@@ -19,6 +19,15 @@ class GetHomeAction extends AbstractAction {
     }
     public function __invoke(Request $request, Response $response, array $args) {
         $twig = Twig::fromRequest($request);
+        $redirection = $this->authnProvider->verifyUser();
+        if ($redirection !== null) {
+            $routeParser = RouteContext::fromRequest($request)->getRouteParser();
+            $url = $routeParser->urlFor($redirection);
+
+            return $response
+                ->withHeader('Location', $url)
+                ->withStatus(302);
+        }
         return $twig->render($response,'home/index.html.twig');
     }
 }

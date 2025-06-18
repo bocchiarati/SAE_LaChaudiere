@@ -7,7 +7,7 @@ import { entrypoint } from "../conf.js";
  * @returns {Promise<Object>} Une promesse qui se résout avec les données de la ressource.
  */
 async function loadRessource(url) {
-    return (await fetch(entrypoint + url)).json();
+    return (await fetch(entrypoint + url, {credentials : 'include'})).json();
 }
 
 /**

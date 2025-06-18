@@ -15,7 +15,7 @@ use Slim\Views\Twig;
  */
 class GetHomeAction extends AbstractAction {
 
-    public function __construct(private AuthnProviderInterface $provider){
+    public function __construct(private AuthnProviderInterface $authnProvider){
     }
     public function __invoke(Request $request, Response $response, array $args) {
         $twig = Twig::fromRequest($request);

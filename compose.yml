@@ -17,6 +17,7 @@ services:
       - app.net
     depends_on:
       - mysql
+    restart: always
 
   adminer:
     image: adminer:5.2.1
@@ -24,6 +25,7 @@ services:
       - "13780:8080"
     networks:
       - app.net
+    restart: always
 
   mysql:
     image: mysql:8.0
@@ -34,6 +36,7 @@ services:
     volumes:
       - ./core/sql/schemas.sql:/docker-entrypoint-initdb.d/01_schema.sql
       - ./core/sql/data.sql:/docker-entrypoint-initdb.d/02_data.sql
+    restart: always
 
   client:
     image : nginx:alpine
@@ -46,3 +49,4 @@ services:
       - app.net
     depends_on:
       - php
+    restart: always

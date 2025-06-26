@@ -11,4 +11,5 @@ interface AuthnProviderInterface {
     public function signout() : void;
     public function verifyUser() : ?string;
     public function isSudo() : bool;
+    public function signinNewUser($email,$mdp) : void;
     }

@@ -16,6 +16,7 @@ class PostCategoryPersoAction extends AbstractAction{
     private AuthnProviderInterface $authnProvider;
     public function __construct(AppServiceInterface $appService, AuthnProviderInterface $authnProvider){
         $this->appService = $appService;
+        $this->authnProvider = $authnProvider;
     }
 
     public function __invoke(Request $request, Response $response, array $args){

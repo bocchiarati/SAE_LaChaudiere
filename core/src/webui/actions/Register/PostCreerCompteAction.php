@@ -31,7 +31,7 @@ class PostCreerCompteAction extends AbstractAction {
         $password = $data['password'];
 
         try{
-            $this->authnProvider->register($email,$password);
+            $this->authnProvider->signinNewUser($email,$password);
         } catch(DatabaseException $e) {
             return $twig->render($response, 'error/index.html.twig', ["code" => 500, "message" => "Erreur interne du serveur, " . $e->getMessage() . " Veuillez essayer plus tard."]);
         } catch(AuthenticationException $e) {

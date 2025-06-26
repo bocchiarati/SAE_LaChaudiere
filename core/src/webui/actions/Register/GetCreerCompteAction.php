@@ -7,6 +7,7 @@ use App\webui\providers\interfaces\AuthnProviderInterface;
 use App\webui\actions\abstract\AbstractAction;
 use Slim\Psr7\Request;
 use Slim\Psr7\Response;
+use Slim\Routing\RouteContext;
 use Slim\Views\Twig;
 
 class GetCreerCompteAction extends AbstractAction {

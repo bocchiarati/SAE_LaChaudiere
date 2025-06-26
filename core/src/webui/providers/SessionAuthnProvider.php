@@ -71,4 +71,8 @@ class SessionAuthnProvider implements AuthnProviderInterface {
         }
         return false;
     }
+
+    public function signinNewUser($email,$mdp): void {
+        $this->authnService->register($email, $mdp);
+    }
 }

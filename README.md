@@ -14,6 +14,6 @@
 
 ## 🔗 Lien Docketu
 
- - [LaChaudiere.core](http://docketu.iutnc.univ-lorraine.fr:41257/)
- - [LaChaudière.web](http://docketu.iutnc.univ-lorraine.fr:58962/)
+ - [LaChaudiere.core](http://docketu.iutnc.univ-lorraine.fr:45620/)
+ - [LaChaudière.web](http://docketu.iutnc.univ-lorraine.fr:45621/)
  - [LaChaudière.adminer](http://docketu.iutnc.univ-lorraine.fr:13780/)
